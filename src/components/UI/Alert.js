@@ -15,9 +15,9 @@ function Alert({ title, text, type }) {
   };
 
   return (
-    <div className={`${getAlertClass()} border-l-4  p-4`} role="alert">
+    <div className={`${getAlertClass()} border-l-4  p-4 my-4`} role="alert">
       <p className="font-bold">{title}</p>
-      <p>{text}</p>
+      <small>{text}</small>
     </div>
   );
 }

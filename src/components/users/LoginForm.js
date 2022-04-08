@@ -1,11 +1,18 @@
 import React from 'react';
 
 import Card from '../UI/Card';
+import Alert from '../UI/Alert';
 
 function LoginForm() {
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full max-w-lg mx-auto">
       <Card>
+        <Alert
+          title="Info"
+          text="Za vpis uporabite elektronski naslov in geslo, ki
+            ga uporabljate pri vpisu v spletno aplikacijo za naročanje malic"
+          type="info"
+        />
         <form>
           <div className="mb-4">
             <label
