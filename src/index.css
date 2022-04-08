@@ -6,4 +6,8 @@
   .container {
     @apply max-w-6xl mx-auto px-4;
   }
+
+  .card {
+    @apply bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4;
+  }
 }

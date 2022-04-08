@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Container from '../components/UI/Container';
+import LoginForm from '../components/users/LoginForm';
 
 function Login() {
   return (
-    <Container>
-      <h1 className="text-3xl font-bold text-center m-10">Login</h1>
+    <Container mode="page">
+      <LoginForm />
     </Container>
   );
 }
