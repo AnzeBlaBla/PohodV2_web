@@ -6,7 +6,7 @@ const { Provider } = Context;
 
 function GlobalContextProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     request('/me')
@@ -16,12 +16,12 @@ function GlobalContextProvider({ children }) {
           setUser(data);
         } else {
           setLoggedIn(false);
-          setUser({});
+          setUser(null);
         }
       })
       .catch(err => {
         setLoggedIn(false);
-        setUser({});
+        setUser(null);
       });
   }, []);
 
@@ -34,13 +34,13 @@ function GlobalContextProvider({ children }) {
             setUser(data);
           } else {
             setLoggedIn(false);
-            setUser({});
+            setUser(null);
           }
           resolve(data);
         })
         .catch(err => {
           setLoggedIn(false);
-          setUser({});
+          setUser(null);
 
           console.log('err while logging in', err);
           reject(err);
@@ -50,15 +50,15 @@ function GlobalContextProvider({ children }) {
 
   const logout = () => {
     return new Promise((resolve, reject) => {
-      request('/auth/logout')
+      request('/auth/logout', 'POST')
         .then(data => {
           setLoggedIn(false);
-          setUser({});
+          setUser(null);
           resolve(data);
         })
         .catch(err => {
           setLoggedIn(false);
-          setUser({});
+          setUser(null);
 
           console.log('err while logging out', err);
           reject(err);

@@ -1,24 +1,36 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { useGlobalContext } from '../../context/GlobalContext';
+
 import Logo from '../../logo.jpg';
 
-import { routes } from '../router/config';
-
 function Navbar() {
+  const { loggedIn, logout } = useGlobalContext();
+
   const [menuHidden, setMenuHidden] = useState(true);
+
+  const logoutHandler = () => {
+    setMenuHidden(true);
+
+    logout()
+      .then(res => {})
+      .catch(err => {
+        console.log('error while logging out', err);
+      });
+  };
 
   const mobileMenuButtonClickHandler = () => {
     setMenuHidden(!menuHidden);
   };
 
-  const navbarNavLinkStyles = ({ isActive }) => {
+  const navbarNavLinkStyles = ({ isActive = false } = {}) => {
     return isActive
       ? 'py-4 px-2 text-blue-700 border-b-4 border-blue-700 font-semibold'
       : 'py-4 px-2 text-gray-500 font-semibold hover:text-blue-700 transition duration-300';
   };
 
-  const menuNavbarLinkStyles = ({ isActive }) => {
+  const menuNavbarLinkStyles = ({ isActive = false } = {}) => {
     return isActive
       ? 'block text-sm px-2 py-4 text-white bg-blue-700 font-semibold'
       : 'block text-sm px-2 py-4 hover:bg-blue-700 hover:text-white transition duration-300';
@@ -40,15 +52,25 @@ function Navbar() {
             </div>
             {/* Primary Navbar Items */}
             <div className="hidden md:flex items-center space-x-1">
-              {routes.map(route => (
-                <NavLink
-                  key={route.path}
-                  to={route.path}
-                  className={navbarNavLinkStyles}
-                >
-                  {route.label}
+              {loggedIn && (
+                <NavLink to="/" className={navbarNavLinkStyles}>
+                  Domov
                 </NavLink>
-              ))}
+              )}
+              {!loggedIn && (
+                <NavLink to="/login" className={navbarNavLinkStyles}>
+                  Prijavi se
+                </NavLink>
+              )}
+              {loggedIn && (
+                <a
+                  href="#!"
+                  className="py-4 px-2 text-gray-500 font-semibold hover:text-blue-700 transition duration-300"
+                  onClick={logoutHandler}
+                >
+                  Odjavi se
+                </a>
+              )}
             </div>
           </div>
           {/* Secondary Navbar Items */}
@@ -70,9 +92,9 @@ function Navbar() {
                 className=" w-6 h-6 text-gray-500 hover:text-blue-700 "
                 x-show="!showMenu"
                 fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
@@ -85,17 +107,31 @@ function Navbar() {
       {/* Mobile Menu */}
       <div className={`mobile-menu md:hidden ${menuHidden ? 'hidden' : ''}`}>
         <ul className="">
-          {routes.map(route => (
+          {loggedIn && (
             <li>
-              <NavLink
-                key={route.path}
-                to={route.path}
-                className={menuNavbarLinkStyles}
-              >
-                {route.label}
+              <NavLink to="/" className={menuNavbarLinkStyles}>
+                Domov
               </NavLink>
             </li>
-          ))}
+          )}
+          {!loggedIn && (
+            <li>
+              <NavLink to="/login" className={menuNavbarLinkStyles}>
+                Prijavi se
+              </NavLink>
+            </li>
+          )}
+          {loggedIn && (
+            <li>
+              <a
+                href="/#!"
+                className="block text-sm px-2 py-4 hover:bg-blue-700 hover:text-white transition duration-300"
+                onClick={logoutHandler}
+              >
+                Odjavi se
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

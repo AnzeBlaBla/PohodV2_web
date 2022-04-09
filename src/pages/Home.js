@@ -1,12 +1,33 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 
-import Container from '../components/UI/Container';
+import useProtectedRoute from '../hooks/useProtectedRoute';
+
+import { request } from '../utils/functions';
+import { userTypes } from '../utils/consts';
+
+import UserHome from '../components/home/UserHome';
+import TeacherHome from '../components/home/TeacherHome';
+import AdminHome from '../components/home/AdminHome';
 
 function Home() {
+  useProtectedRoute('required');
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    request('/me').then(data => {
+      if (data) {
+        setUser(data);
+      }
+    });
+  }, []);
+
   return (
-    <Container>
-      <h1 className="text-3xl font-bold text-center m-10">Home</h1>
-    </Container>
+    <>
+      {user.user_type === userTypes.ADMIN && <AdminHome />}
+      {user.user_type === userTypes.TEACHER && <TeacherHome />}
+      {user.user_type === userTypes.USER && <UserHome />}
+    </>
   );
 }
 

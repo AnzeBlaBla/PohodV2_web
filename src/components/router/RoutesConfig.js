@@ -11,8 +11,11 @@ function RoutesConfig() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        {/* Home Page */}
+        <Route exact path="/" element={<Home />} />
+        {/* Login Page */}
+        <Route exact path="/login" element={<Login />} />
+        {/* 404 Page */}
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
