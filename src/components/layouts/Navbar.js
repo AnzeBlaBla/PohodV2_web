@@ -1,32 +1,24 @@
-import { useState, useEffect } from 'react';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useGlobalContext } from '../../context/GlobalContext';
+import useUser from '../../hooks/useUser';
 
-import { request } from '../../utils/functions';
 import { userTypes } from '../../utils/consts';
 
 import MobileMenuNavbar from './navbar/MobileMenuNavbar';
+import NormalNavbar from './navbar/NormalNavbar';
 
 import Logo from '../../logo.jpg';
 
 function Navbar() {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
   const { loggedIn, logout } = useGlobalContext();
 
-  const [user, setUser] = useState({});
+  const { user } = useUser();
 
   const [menuHidden, setMenuHidden] = useState(true);
-
-  useEffect(() => {
-    request('/me').then(data => {
-      if (data) {
-        setUser(data);
-      }
-    });
-  }, [pathname]);
 
   const logoutHandler = () => {
     navigate('/');
@@ -66,30 +58,12 @@ function Navbar() {
               </a>
             </div>
             {/* Primary Navbar Items */}
-            <div className="hidden md:flex items-center space-x-1">
-              {loggedIn && (
-                <NavLink to="/" className={navbarNavLinkStyles}>
-                  Domov
-                </NavLink>
-              )}
-              {loggedIn &&
-                user.user_type === userTypes.ADMIN &&
-                Object.keys(user).length > 0 && (
-                  <NavLink to="/events/all" className={navbarNavLinkStyles}>
-                    Dogodki
-                  </NavLink>
-                )}
-              {!loggedIn && (
-                <NavLink to="/login" className={navbarNavLinkStyles}>
-                  Prijavi se
-                </NavLink>
-              )}
-              {loggedIn && (
-                <NavLink to="/leaderboard" className={navbarNavLinkStyles}>
-                  Rezultati
-                </NavLink>
-              )}
-            </div>
+            <NormalNavbar
+              loggedIn={loggedIn}
+              navbarNavLinkStyles={navbarNavLinkStyles}
+              user={user}
+              userTypes={userTypes}
+            />
           </div>
           {/* Secondary Navbar Items */}
           <div className="hidden md:flex items-center space-x-3 ">

@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
-
 import useProtectedRoute from '../hooks/useProtectedRoute';
+import useUser from '../hooks/useUser';
 
-import { request } from '../utils/functions';
 import { userTypes } from '../utils/consts';
 
 import UserHome from '../components/home/UserHome';
@@ -12,15 +10,7 @@ import AdminHome from '../components/home/AdminHome';
 function Home() {
   useProtectedRoute('required');
 
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    request('/me').then(data => {
-      if (data) {
-        setUser(data);
-      }
-    });
-  }, []);
+  const { user } = useUser();
 
   return (
     <>

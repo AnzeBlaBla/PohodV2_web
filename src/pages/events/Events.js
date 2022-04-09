@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
+import { Routes, Route, NavLink } from 'react-router-dom';
 
 import AllEvents from './AllEvents';
 import NewEvent from './NewEvent';
@@ -8,16 +7,10 @@ import Container from '../../components/UI/Container';
 import Card from '../../components/UI/Card';
 
 function Events() {
-  const navigate = useNavigate();
-
   const menuLinkStyles = ({ isActive = false }) =>
     isActive
       ? 'button-outline text-white bg-blue-700 mr-5'
       : 'button-outline mr-5';
-
-  useEffect(() => {
-    navigate('/events/all');
-  }, [navigate]);
 
   return (
     <Container mode="page">
