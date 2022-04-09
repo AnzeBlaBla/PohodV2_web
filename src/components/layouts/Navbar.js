@@ -6,6 +6,8 @@ import { useGlobalContext } from '../../context/GlobalContext';
 import { request } from '../../utils/functions';
 import { userTypes } from '../../utils/consts';
 
+import MobileMenuNavbar from './navbar/MobileMenuNavbar';
+
 import Logo from '../../logo.jpg';
 
 function Navbar() {
@@ -21,7 +23,6 @@ function Navbar() {
   useEffect(() => {
     request('/me').then(data => {
       if (data) {
-        console.log(data);
         setUser(data);
       }
     });
@@ -83,30 +84,25 @@ function Navbar() {
                   Prijavi se
                 </NavLink>
               )}
-              <NavLink to="/leaderboard" className={navbarNavLinkStyles}>
-                Rezultati
-              </NavLink>
-
               {loggedIn && (
-                <a
-                  href="#!"
-                  className="py-4 px-2 text-gray-500 font-semibold hover:text-blue-700 transition duration-300"
-                  onClick={logoutHandler}
-                >
-                  Odjavi se
-                </a>
+                <NavLink to="/leaderboard" className={navbarNavLinkStyles}>
+                  Rezultati
+                </NavLink>
               )}
             </div>
           </div>
           {/* Secondary Navbar Items */}
-          {/* <div className="hidden md:flex items-center space-x-3 ">
-            <a
-              href="#!"
-              className="py-2 px-2 font-medium text-white bg-blue-700 rounded hover:bg-blue-600 transition duration-300"
-            >
-              Prijavi se
-            </a>
-          </div> */}
+          <div className="hidden md:flex items-center space-x-3 ">
+            {loggedIn && (
+              <a
+                href="#!"
+                className="py-2 px-2 font-medium text-white bg-blue-700 rounded hover:bg-blue-600 transition duration-300"
+                onClick={logoutHandler}
+              >
+                Odjavi se
+              </a>
+            )}
+          </div>
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button
@@ -131,49 +127,13 @@ function Navbar() {
       </div>
       {/* Mobile Menu */}
       <div className={`mobile-menu md:hidden ${menuHidden ? 'hidden' : ''}`}>
-        <ul className="">
-          {loggedIn && (
-            <li>
-              <NavLink to="/" className={menuNavbarLinkStyles}>
-                Domov
-              </NavLink>
-            </li>
-          )}
-          {loggedIn &&
-            user.user_type === userTypes.ADMIN &&
-            Object.keys(user).length > 0 && (
-              <li>
-                <NavLink to="/events/all" className={menuNavbarLinkStyles}>
-                  Dogodki
-                </NavLink>
-              </li>
-            )}
-          {!loggedIn && (
-            <li>
-              <NavLink to="/login" className={menuNavbarLinkStyles}>
-                Prijavi se
-              </NavLink>
-            </li>
-          )}
-
-          <li>
-            <NavLink to="/leaderboard" className={menuNavbarLinkStyles}>
-              Rezultati
-            </NavLink>
-          </li>
-
-          {loggedIn && (
-            <li>
-              <a
-                href="/#!"
-                className="block text-sm px-2 py-4 hover:bg-blue-700 hover:text-white transition duration-300"
-                onClick={logoutHandler}
-              >
-                Odjavi se
-              </a>
-            </li>
-          )}
-        </ul>
+        <MobileMenuNavbar
+          loggedIn={loggedIn}
+          logoutHandler={logoutHandler}
+          menuNavbarLinkStyles={menuNavbarLinkStyles}
+          user={user}
+          userTypes={userTypes}
+        />
       </div>
     </nav>
   );

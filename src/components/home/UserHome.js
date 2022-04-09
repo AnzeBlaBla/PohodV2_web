@@ -1,22 +1,28 @@
 import { useEffect, useState } from 'react';
 
+import { useGlobalContext } from '../../context/GlobalContext';
+
 import { request } from '../../utils/functions';
 
 import Map from '../UI/Map';
 
 function UserHome() {
+  const { user } = useGlobalContext();
+
   const [points, setPoints] = useState([]);
 
   useEffect(() => {
-    request('points/unlocked').then(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }, []);
+    if (user.group) {
+      request('points/unlocked').then(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+  }, [user]);
 
   return (
     <div className="leaflet-container">

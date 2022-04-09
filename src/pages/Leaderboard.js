@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 
+import useProtectedRoute from '../hooks/useProtectedRoute';
+
 import { request } from '../utils/functions';
 
 import Container from '../components/UI/Container';
 import Card from '../components/UI/Card';
 
 function Leaderboard() {
+  useProtectedRoute('required');
+
   const [events, setEvents] = useState([]);
   const [groups, setGroups] = useState([]);
 

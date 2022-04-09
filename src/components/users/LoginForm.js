@@ -29,6 +29,9 @@ function LoginForm() {
   const formOnSubmitHandler = event => {
     event.preventDefault();
 
+    setUsernameInvalid(false);
+    setPasswordInvalid(false);
+
     if (username.trim() === '' || password.trim() === '') {
       setUsernameInvalid(username.trim() === '');
       setPasswordInvalid(password.trim() === '');
@@ -62,7 +65,7 @@ function LoginForm() {
               Uporabniško ime / Elektronski naslov
             </label>
             <input
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+              className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                 usernameInvalid && 'border-red-500'
               }`}
               id="username"
