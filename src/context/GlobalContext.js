@@ -60,7 +60,7 @@ function GlobalContextProvider({ children }) {
           setLoggedIn(false);
           setUser(null);
 
-          console.log('err while logging out', err);
+          console.log('err while logging out', err.message);
           reject(err);
         });
     });

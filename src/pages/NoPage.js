@@ -1,12 +1,23 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-import Container from '../components/UI/Container';
+import Card from '../components/UI/Card';
 
 function NoPage() {
   return (
-    <Container>
-      <h1 className="text-3xl font-bold text-center m-10">No Page 404</h1>
-    </Container>
+    <div className="small-container mt-10">
+      <Card>
+        <div className="flex flex-col justify-center items-center">
+          <h1 className="text-center text-4xl font-bold my-5">404</h1>
+          <p className="text-xl text-center mb-5">
+            Stran, ki jo trenutno iščete ni na voljo.
+          </p>
+          <NavLink to="/" className="button">
+            Pojdite nazaj
+          </NavLink>
+        </div>
+      </Card>
+    </div>
   );
 }
 

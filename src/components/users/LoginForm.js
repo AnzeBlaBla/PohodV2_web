@@ -45,7 +45,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto">
+    <div className="small-container">
       <Card>
         <Alert
           title="Info"
@@ -102,7 +102,7 @@ function LoginForm() {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="button focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Prijavite se

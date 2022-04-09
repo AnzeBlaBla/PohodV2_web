@@ -16,7 +16,31 @@ body {
     @apply max-w-6xl mx-auto px-4;
   }
 
+  .small-container {
+    @apply w-full max-w-lg mx-auto;
+  }
+
   .card {
     @apply bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4;
+  }
+
+  .card-primary-title {
+    @apply text-center text-4xl font-bold my-5;
+  }
+
+  .card-primary-text {
+    @apply text-xl text-center mb-5;
+  }
+
+  .card-primary-image {
+    @apply mx-auto w-full max-w-md;
+  }
+
+  .select {
+    @apply appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0;
+  }
+
+  .button {
+    @apply bg-blue-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-blue-700;
   }
 }

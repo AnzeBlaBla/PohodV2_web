@@ -1,23 +1,37 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 
 import { useGlobalContext } from '../../context/GlobalContext';
+
+import { request } from '../../utils/functions';
+import { userTypes } from '../../utils/consts';
 
 import Logo from '../../logo.jpg';
 
 function Navbar() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const { loggedIn, logout } = useGlobalContext();
+
+  const [user, setUser] = useState({});
 
   const [menuHidden, setMenuHidden] = useState(true);
 
-  const logoutHandler = () => {
-    setMenuHidden(true);
+  useEffect(() => {
+    request('/me').then(data => {
+      if (data) {
+        console.log(data);
+        setUser(data);
+      }
+    });
+  }, [pathname]);
 
-    logout()
-      .then(res => {})
-      .catch(err => {
-        console.log('error while logging out', err);
-      });
+  const logoutHandler = () => {
+    navigate('/');
+
+    setMenuHidden(true);
+    logout();
   };
 
   const mobileMenuButtonClickHandler = () => {
@@ -57,11 +71,22 @@ function Navbar() {
                   Domov
                 </NavLink>
               )}
+              {loggedIn &&
+                user.user_type === userTypes.ADMIN &&
+                Object.keys(user).length > 0 && (
+                  <NavLink to="/events/all" className={navbarNavLinkStyles}>
+                    Dogodki
+                  </NavLink>
+                )}
               {!loggedIn && (
                 <NavLink to="/login" className={navbarNavLinkStyles}>
                   Prijavi se
                 </NavLink>
               )}
+              <NavLink to="/leaderboard" className={navbarNavLinkStyles}>
+                Rezultati
+              </NavLink>
+
               {loggedIn && (
                 <a
                   href="#!"
@@ -114,6 +139,15 @@ function Navbar() {
               </NavLink>
             </li>
           )}
+          {loggedIn &&
+            user.user_type === userTypes.ADMIN &&
+            Object.keys(user).length > 0 && (
+              <li>
+                <NavLink to="/events/all" className={menuNavbarLinkStyles}>
+                  Dogodki
+                </NavLink>
+              </li>
+            )}
           {!loggedIn && (
             <li>
               <NavLink to="/login" className={menuNavbarLinkStyles}>
@@ -121,6 +155,13 @@ function Navbar() {
               </NavLink>
             </li>
           )}
+
+          <li>
+            <NavLink to="/leaderboard" className={menuNavbarLinkStyles}>
+              Rezultati
+            </NavLink>
+          </li>
+
           {loggedIn && (
             <li>
               <a
