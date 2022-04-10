@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { useGlobalContext } from '../../context/GlobalContext';
 
@@ -7,7 +6,6 @@ import Card from '../UI/Card';
 import Alert from '../UI/Alert';
 
 function LoginForm() {
-  const navigate = useNavigate();
   const { login } = useGlobalContext();
 
   const copyRightText = `${new Date().getFullYear()} ERŠ Velenje. All rights reserved.`;

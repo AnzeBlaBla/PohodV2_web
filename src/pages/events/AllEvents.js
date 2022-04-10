@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 
-import Card from '../../components/UI/Card';
+import EventsList from '../../components/events/EventsList';
 
-import { request, formatDate } from '../../utils/functions';
+import { request } from '../../utils/functions';
 
 function AllEvents() {
   const [events, setEvents] = useState([]);
@@ -18,26 +17,7 @@ function AllEvents() {
       });
   }, []);
 
-  return (
-    <>
-      {events.map(event => (
-        <Card key={event.event_id}>
-          <h2 className="bg-cyan-600 text-white rounded p-4 font-bold text-xl">
-            {event.name}
-          </h2>
-          <p className="card-primary-text my-10 text-left">
-            {formatDate(event.date)}
-          </p>
-          <NavLink
-            to={`/events/${event.event_id}`}
-            className="button-outline font-normal"
-          >
-            Oglej si dogodek
-          </NavLink>
-        </Card>
-      ))}
-    </>
-  );
+  return <EventsList events={events} />;
 }
 
 export default AllEvents;
