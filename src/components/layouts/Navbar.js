@@ -8,8 +8,9 @@ import { userTypes } from '../../utils/consts';
 
 import MobileMenuNavbar from './navbar/MobileMenuNavbar';
 import NormalNavbar from './navbar/NormalNavbar';
-
-import Logo from '../../logo.jpg';
+import SecondaryNavbar from './navbar/SecondaryNavbar';
+import NavbarLogo from './navbar/NavbarLogo';
+import HamburgerIcon from './navbar/HamburgerIcon';
 
 function Navbar() {
   const navigate = useNavigate();
@@ -50,12 +51,7 @@ function Navbar() {
           <div className="flex space-x-7">
             <div>
               {/* Website Logo */}
-              <a href="#!" className="flex items-center py-4 px-2">
-                <img src={Logo} alt="Logo" className="h-8 w-8 mr-2" />
-                <span className="font-semibold text-gray-500 text-lg">
-                  Pohod V2
-                </span>
-              </a>
+              <NavbarLogo />
             </div>
             {/* Primary Navbar Items */}
             <NormalNavbar
@@ -66,37 +62,11 @@ function Navbar() {
             />
           </div>
           {/* Secondary Navbar Items */}
-          <div className="hidden md:flex items-center space-x-3 ">
-            {loggedIn && (
-              <a
-                href="#!"
-                className="py-2 px-2 font-medium text-white bg-blue-700 rounded hover:bg-blue-600 transition duration-300"
-                onClick={logoutHandler}
-              >
-                Odjavi se
-              </a>
-            )}
-          </div>
+          <SecondaryNavbar loggedIn={loggedIn} logoutHandler={logoutHandler} />
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button
-              className="outline-none mobile-menu-button"
-              onClick={mobileMenuButtonClickHandler}
-            >
-              <svg
-                className=" w-6 h-6 text-gray-500 hover:text-blue-700 "
-                x-show="!showMenu"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
-          </div>
+          <HamburgerIcon
+            mobileMenuButtonClickHandler={mobileMenuButtonClickHandler}
+          />
         </div>
       </div>
       {/* Mobile Menu */}
