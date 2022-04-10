@@ -6,7 +6,7 @@ function LeaderboardList({ groups }) {
   return (
     <>
       {groups.map((group, index) => (
-        <LeaderboardItem group={group} index={index} />
+        <LeaderboardItem group={group} index={index} key={group.group_id} />
       ))}
     </>
   );
