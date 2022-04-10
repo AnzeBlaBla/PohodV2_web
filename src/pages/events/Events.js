@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
+import useProtectedRoute from '../../hooks/useProtectedRoute';
+
 import AllEvents from './AllEvents';
 import NewEvent from './NewEvent';
 
@@ -9,6 +11,8 @@ import Container from '../../components/UI/Container';
 import Card from '../../components/UI/Card';
 
 function Events() {
+  useProtectedRoute('required');
+
   return (
     <Container mode="page">
       <Card>
