@@ -13,18 +13,24 @@ import useUser from '../../hooks/useUser';
 function RoutesList() {
   const { user } = useUser();
 
+  const userExists = () => Object.keys(user).length > 0;
+
   return (
     <Routes>
       {/* Home Page */}
-      <Route exact path="/" element={<Home />} />
+      {userExists() && <Route exact path="/" element={<Home />} />}
       {/* Login Page */}
       <Route exact path="/login" element={<Login />} />
       {/* Leaderboard Page */}
-      <Route exact path="/leaderboard" element={<Leaderboard />} />
-      {/* Events */}
-      {user.user_type === userTypes.ADMIN && Object.keys(user).length > 0 && (
-        <Route path="/events/*" element={<Events />} />
+      {userExists() && (
+        <Route exact path="/leaderboard" element={<Leaderboard />} />
       )}
+      {/* Events */}
+      {userExists() &&
+        user.user_type === userTypes.ADMIN &&
+        Object.keys(user).length > 0 && (
+          <Route path="/events/*" element={<Events />} />
+        )}
       {/* Groups */}
       {/* 404 Page */}
       <Route path="*" element={<NoPage />} />

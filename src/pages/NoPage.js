@@ -1,9 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { useGlobalContext } from '../context/GlobalContext';
+
 import Card from '../components/UI/Card';
 
 function NoPage() {
+  const { loggedIn } = useGlobalContext();
+
   return (
     <div className="small-container mt-10">
       <Card>
@@ -12,7 +16,7 @@ function NoPage() {
           <p className="text-xl text-center mb-5">
             Stran, ki jo trenutno iščete ni na voljo.
           </p>
-          <NavLink to="/" className="button">
+          <NavLink to={loggedIn ? '/' : '/login'} className="button">
             Pojdite nazaj
           </NavLink>
         </div>
