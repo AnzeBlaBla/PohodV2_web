@@ -13,9 +13,9 @@ function UserHome() {
 
   useEffect(() => {
     if (user.group) {
-      request('points/unlocked').then(
+      request('/points/unlocked').then(
         res => {
-          console.log(res);
+          setPoints(res);
         },
         err => {
           console.log(err);
