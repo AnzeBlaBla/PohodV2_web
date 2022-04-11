@@ -70,7 +70,7 @@ function EventsForm({ data = {}, method = 'POST', show = true } = {}) {
       return;
     }
 
-    request(`/events/${method === 'PUT' ? data.event_id : ''}`, method, {
+    request(`/events${method === 'PUT' ? `/${data.event_id}` : ''}`, method, {
       name,
       date,
       min_group_members: minMembers,
