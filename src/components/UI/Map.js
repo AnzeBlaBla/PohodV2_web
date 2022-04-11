@@ -3,21 +3,26 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 
 const position = [46.386079810551266, 15.087464857546308];
 
-function Map({ points = [] }) {
+function Map({ points = [], className = 'leaflet-container' } = {}) {
   return (
-    <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {points.map(point => (
-        <Marker position={[point.latitude, point.longitude]} key={point.id}>
-          <Popup>
-            <span>{point.name}</span>
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
+    <div className={className}>
+      <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {points.map(point => (
+          <Marker
+            position={[+point.location_lat, +point.location_long]}
+            key={point.point_id}
+          >
+            <Popup>
+              <span>{point.name}</span>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
   );
 }
 

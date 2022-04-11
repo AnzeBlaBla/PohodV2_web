@@ -24,11 +24,7 @@ function UserHome() {
     }
   }, [user]);
 
-  return (
-    <div className="leaflet-container">
-      <Map points={points} />
-    </div>
-  );
+  return <Map points={points} />;
 }
 
 export default UserHome;
