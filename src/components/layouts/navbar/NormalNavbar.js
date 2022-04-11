@@ -1,7 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-function NormalNavbar({ loggedIn, navbarNavLinkStyles, user, userTypes }) {
+import { userTypes } from '../../../utils/consts';
+
+function NormalNavbar({ loggedIn, navbarNavLinkStyles, user }) {
   return (
     <div className="hidden md:flex items-center space-x-1">
       {loggedIn && (

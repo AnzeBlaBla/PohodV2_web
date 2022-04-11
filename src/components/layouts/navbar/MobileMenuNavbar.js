@@ -1,12 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { userTypes } from '../../../utils/consts';
+
 function MobileNavbarMenu({
   loggedIn,
   logoutHandler,
   menuNavbarLinkStyles,
   user,
-  userTypes,
 }) {
   return (
     <ul className="">

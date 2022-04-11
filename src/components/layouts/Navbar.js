@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { useGlobalContext } from '../../context/GlobalContext';
 
-import { userTypes } from '../../utils/consts';
-
 import MobileMenuNavbar from './navbar/MobileMenuNavbar';
 import NormalNavbar from './navbar/NormalNavbar';
 import SecondaryNavbar from './navbar/SecondaryNavbar';
@@ -55,7 +53,6 @@ function Navbar({ user }) {
               loggedIn={loggedIn}
               navbarNavLinkStyles={navbarNavLinkStyles}
               user={user}
-              userTypes={userTypes}
             />
           </div>
           {/* Secondary Navbar Items */}
@@ -73,7 +70,6 @@ function Navbar({ user }) {
           logoutHandler={logoutHandler}
           menuNavbarLinkStyles={menuNavbarLinkStyles}
           user={user}
-          userTypes={userTypes}
         />
       </div>
     </nav>
