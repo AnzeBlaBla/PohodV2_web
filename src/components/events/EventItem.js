@@ -4,6 +4,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import Card from '../UI/Card';
 import Map from '../UI/Map';
 
+import EventsForm from './EventsForm';
+
 import { formatDate, request } from '../../utils/functions';
 
 function EventItem({ event, showDetails }) {
@@ -39,10 +41,16 @@ function EventItem({ event, showDetails }) {
         </NavLink>
       )}
       {showDetails && (
-        <button className="button-danger" onClick={onDeleteHandler}>
+        <button className="button-danger mr-2 my-2" onClick={onDeleteHandler}>
           Izbriši dogodek
         </button>
       )}
+      {showDetails && (
+        <button className="button-warning my-2" onClick={onDeleteHandler}>
+          Uredi
+        </button>
+      )}
+      {showDetails && <EventsForm data={event} method="PUT" />}
     </Card>
   );
 }
