@@ -49,7 +49,7 @@ function MobileNavbarMenu({
             className="block text-sm px-2 py-4 hover:bg-blue-700 hover:text-white transition duration-300"
             onClick={logoutHandler}
           >
-            Odjavi se
+            Izpiši se
           </a>
         </li>
       )}

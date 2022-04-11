@@ -9,7 +9,7 @@ function SecondaryNavbar({ loggedIn, logoutHandler }) {
           className="py-2 px-2 font-medium text-white bg-blue-700 rounded hover:bg-blue-600 transition duration-300"
           onClick={logoutHandler}
         >
-          Odjavi se
+          Izpiši se
         </a>
       )}
     </div>
