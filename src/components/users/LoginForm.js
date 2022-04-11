@@ -4,6 +4,7 @@ import { useGlobalContext } from '../../context/GlobalContext';
 
 import Card from '../UI/Card';
 import Alert from '../UI/Alert';
+import Input from '../UI/Input';
 
 function LoginForm() {
   const { login } = useGlobalContext();
@@ -55,52 +56,28 @@ function LoginForm() {
           type="info"
         />
         <form onSubmit={formOnSubmitHandler}>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="username"
-            >
-              Uporabniško ime / Elektronski naslov
-            </label>
-            <input
-              className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                usernameInvalid && 'border-red-500'
-              }`}
-              id="username"
-              type="text"
-              placeholder="Vnesite uporabniško ime / elektronski naslov"
-              onChange={usernameOnChangeHandler}
-              value={username}
-            />
-            {usernameInvalid && (
-              <p className="text-red-500 text-xs italic">
-                Prosimo vnesite uporabniško ime / elektronski naslov.
-              </p>
-            )}
-          </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Geslo
-            </label>
-            <input
-              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline ${
-                passwordInvalid && 'border-red-500'
-              }`}
-              id="password"
-              type="password"
-              placeholder="Vnesite geslo"
-              onChange={passwordOnChangeHandler}
-              value={password}
-            />
-            {passwordInvalid && (
-              <p className="text-red-500 text-xs italic">
-                Prosimo vnesite geslo.
-              </p>
-            )}
-          </div>
+          <Input
+            label="Uporabniško ime / Elektronski naslov"
+            options={{
+              id: 'username',
+              type: 'text',
+              placeholder: 'Vnesite uporabniško ime / elektronski naslov',
+            }}
+            invalid={usernameInvalid}
+            onChange={usernameOnChangeHandler}
+            value={username}
+          />
+          <Input
+            label="Geslo"
+            options={{
+              id: 'password',
+              type: 'password',
+              placeholder: 'Vnesite geslo',
+            }}
+            invalid={passwordInvalid}
+            onChange={passwordOnChangeHandler}
+            value={password}
+          />
           <div className="flex items-center justify-between">
             <button
               className="button focus:outline-none focus:shadow-outline"
