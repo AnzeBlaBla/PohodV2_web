@@ -1,7 +1,22 @@
 import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from 'react-leaflet';
 
 const position = [46.386079810551266, 15.087464857546308];
+
+function HandleMapClick() {
+  const map = useMapEvents({
+    click(event) {
+      console.log(event.latlng);
+    },
+  });
+  return null;
+}
 
 function Map({ points = [], className = 'leaflet-container' } = {}) {
   return (
@@ -16,6 +31,7 @@ function Map({ points = [], className = 'leaflet-container' } = {}) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <HandleMapClick />
         {points.map(point => (
           <Marker
             position={[+point.location_lat, +point.location_long]}
