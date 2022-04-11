@@ -61,7 +61,7 @@ function Leaderboard() {
           eventOnChangeHandler={eventOnChangeHandler}
         />
         {/* Table */}
-        {groups && groups.length > 0 && (
+        {selectedEvent && groups && groups.length > 0 && (
           <Table fields={['#', 'Ime skupine', 'Čas hoje', 'Točke za odgovore']}>
             <LeaderboardList groups={groups} />
           </Table>

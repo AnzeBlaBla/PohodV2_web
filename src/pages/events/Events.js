@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import useProtectedRoute from '../../hooks/useProtectedRoute';
 
@@ -12,6 +13,15 @@ import Card from '../../components/UI/Card';
 
 function Events() {
   useProtectedRoute('required');
+
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname === '/events') {
+      navigate('/events/all');
+    }
+  }, [pathname, navigate]);
 
   return (
     <Container mode="page">
