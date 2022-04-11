@@ -6,6 +6,8 @@ import Card from '../UI/Card';
 import Alert from '../UI/Alert';
 import Input from '../UI/Input';
 
+import LoginFormActions from './LoginFormActions';
+
 function LoginForm() {
   const { login } = useGlobalContext();
 
@@ -78,22 +80,7 @@ function LoginForm() {
             onChange={passwordOnChangeHandler}
             value={password}
           />
-          <div className="flex items-center justify-between">
-            <button
-              className="button focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Prijavite se
-            </button>
-            <a
-              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-              href="https://malice.scv.si/students/password/new"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Pozabljeno geslo?
-            </a>
-          </div>
+          <LoginFormActions />
         </form>
       </Card>
       <p className="text-center text-gray-500 text-xs">&copy;{copyRightText}</p>
