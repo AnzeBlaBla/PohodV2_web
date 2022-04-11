@@ -8,12 +8,20 @@ export default function useUser(authRequired) {
 
   const [user, setUser] = useState({});
 
-  useEffect(() => {
+  const getUser = () => {
     request('/me').then(data => {
       if (data) {
         setUser(data);
       }
     });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    getUser();
   }, [pathname]);
 
   return { user };

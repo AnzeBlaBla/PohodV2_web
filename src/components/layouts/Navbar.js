@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useGlobalContext } from '../../context/GlobalContext';
-import useUser from '../../hooks/useUser';
 
 import { userTypes } from '../../utils/consts';
 
@@ -12,12 +11,10 @@ import SecondaryNavbar from './navbar/SecondaryNavbar';
 import NavbarLogo from './navbar/NavbarLogo';
 import HamburgerIcon from './navbar/HamburgerIcon';
 
-function Navbar() {
+function Navbar({ user }) {
   const navigate = useNavigate();
 
   const { loggedIn, logout } = useGlobalContext();
-
-  const { user } = useUser();
 
   const [menuHidden, setMenuHidden] = useState(true);
 

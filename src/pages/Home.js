@@ -1,5 +1,4 @@
 import useProtectedRoute from '../hooks/useProtectedRoute';
-import useUser from '../hooks/useUser';
 
 import { userTypes } from '../utils/consts';
 
@@ -7,10 +6,8 @@ import UserHome from '../components/home/UserHome';
 import TeacherHome from '../components/home/TeacherHome';
 import AdminHome from '../components/home/AdminHome';
 
-function Home() {
+function Home({ user }) {
   useProtectedRoute('required');
-
-  const { user } = useUser();
 
   return (
     <>
