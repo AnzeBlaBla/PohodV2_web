@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import Card from '../UI/Card';
@@ -10,6 +10,8 @@ import { formatDate, request } from '../../utils/functions';
 
 function EventItem({ event, showDetails }) {
   const navigate = useNavigate();
+
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const onDeleteHandler = () => {
     request(`/events/${event.event_id}`, 'DELETE')
@@ -46,11 +48,16 @@ function EventItem({ event, showDetails }) {
         </button>
       )}
       {showDetails && (
-        <button className="button-warning my-2" onClick={onDeleteHandler}>
-          Uredi
+        <button
+          className="button-warning my-2"
+          onClick={() => setShowEditForm(prev => !prev)}
+        >
+          {showEditForm ? 'Zapri' : 'Uredi'}
         </button>
       )}
-      {showDetails && <EventsForm data={event} method="PUT" />}
+      {showDetails && (
+        <EventsForm data={event} method="PUT" show={showEditForm} />
+      )}
     </Card>
   );
 }

@@ -10,7 +10,7 @@ import {
 const position = [46.386079810551266, 15.087464857546308];
 
 function HandleMapClick() {
-  const map = useMapEvents({
+  useMapEvents({
     click(event) {
       console.log(event.latlng);
     },
