@@ -6,7 +6,12 @@ const position = [46.386079810551266, 15.087464857546308];
 function Map({ points = [], className = 'leaflet-container' } = {}) {
   return (
     <div className={className}>
-      <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+      <MapContainer
+        className={className}
+        center={position}
+        zoom={13}
+        scrollWheelZoom={false}
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

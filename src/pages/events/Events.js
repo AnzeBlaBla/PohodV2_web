@@ -5,6 +5,7 @@ import useProtectedRoute from '../../hooks/useProtectedRoute';
 
 import AllEvents from './AllEvents';
 import NewEvent from './NewEvent';
+import EventDetails from './EventDetails';
 
 import EventsNavigation from '../../components/events/EventsNavigation';
 
@@ -30,6 +31,7 @@ function Events() {
         <Routes>
           <Route path="all" element={<AllEvents />} />
           <Route path="new" element={<NewEvent />} />
+          <Route path=":id" element={<EventDetails />} />
         </Routes>
       </Card>
     </Container>

@@ -1,11 +1,24 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import Card from '../UI/Card';
+import Map from '../UI/Map';
 
-import { formatDate } from '../../utils/functions';
+import { formatDate, request } from '../../utils/functions';
 
-function EventItem({ event }) {
+function EventItem({ event, showDetails }) {
+  const navigate = useNavigate();
+
+  const onDeleteHandler = () => {
+    request(`/events/${event.event_id}`, 'DELETE')
+      .then(() => {
+        navigate('/events/all');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   return (
     <Card key={event.event_id}>
       <h2 className="bg-cyan-600 text-white rounded p-4 font-bold text-xl">
@@ -14,12 +27,22 @@ function EventItem({ event }) {
       <p className="card-primary-text my-10 text-left">
         {formatDate(event.date)}
       </p>
-      <NavLink
-        to={`/events/${event.event_id}`}
-        className="button-outline font-normal"
-      >
-        Oglej si dogodek
-      </NavLink>
+      {showDetails && (
+        <Map className="leaflet-event-container my-10" points={event.points} />
+      )}
+      {!showDetails && (
+        <NavLink
+          to={`/events/${event.event_id}`}
+          className="button-outline font-normal"
+        >
+          Oglej si dogodek
+        </NavLink>
+      )}
+      {showDetails && (
+        <button className="button-danger" onClick={onDeleteHandler}>
+          Izbriši dogodek
+        </button>
+      )}
     </Card>
   );
 }
