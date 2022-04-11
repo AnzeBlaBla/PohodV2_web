@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { request } from '../../utils/functions';
 
 import Card from '../../components/UI/Card';
+import Input from '../../components/UI/Input';
 
 function NewEvent() {
   const navigate = useNavigate();
@@ -87,92 +88,53 @@ function NewEvent() {
     <Card>
       <form onSubmit={formOnSubmitHandler}>
         {/* Name */}
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="name"
-          >
-            Ime
-          </label>
-          <input
-            className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline `}
-            id="name"
-            type="text"
-            placeholder="Vnesite ime dogodka"
-            value={name}
-            onChange={nameOnChangeHandler}
-          />
-          {nameInvalid && (
-            <p className="text-red-500 text-xs italic">
-              Prosimo vnesite ime dogodka.
-            </p>
-          )}
-        </div>
+        <Input
+          label="Ime dogodka"
+          options={{
+            id: 'name',
+            type: 'text',
+            placeholder: 'Vnesite ime dogodka',
+          }}
+          invalid={nameInvalid}
+          onChange={nameOnChangeHandler}
+          value={name}
+        />
         {/* Date */}
-        <div className="mb-6">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="date"
-          >
-            Datum
-          </label>
-          <input
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
-            id="date"
-            type="date"
-            value={date}
-            onChange={dateOnChangeHandler}
-          />
-          {dateInvalid && (
-            <p className="text-red-500 text-xs italic">
-              Prosimo izberite datum dogodka.
-            </p>
-          )}
-        </div>
+        <Input
+          label="Datum dogodka"
+          options={{
+            id: 'date',
+            type: 'date',
+            placeholder: 'Vnesite datum dogodka',
+          }}
+          invalid={dateInvalid}
+          onChange={dateOnChangeHandler}
+          value={date}
+        />
+
         {/* Min Members */}
-        <div className="mb-6">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="minMembers"
-          >
-            Najmanj članov v ekipi
-          </label>
-          <input
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
-            id="minMembers"
-            type="number"
-            min="1"
-            value={minMembers}
-            onChange={minMembersOnChangeHandler}
-          />
-          {minMembersInvalid && (
-            <p className="text-red-500 text-xs italic">
-              Prosimo izberite pravilno število "najmanj članov v ekipi".
-            </p>
-          )}
-        </div>
+        <Input
+          label="Najmanj članov v ekipi"
+          options={{
+            id: 'minMembers',
+            type: 'number',
+          }}
+          invalid={minMembersInvalid}
+          onChange={minMembersOnChangeHandler}
+          value={minMembers}
+        />
+
         {/* Max Members */}
-        <div className="mb-6">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="maxMembers"
-          >
-            Največ članov v ekipi
-          </label>
-          <input
-            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
-            id="maxMembers"
-            type="Number"
-            min="1"
-            value={maxMembers}
-            onChange={maxMembersOnChangeHandler}
-          />
-          {maxMembersInvalid && (
-            <p className="text-red-500 text-xs italic">
-              Prosimo izberite pravilno število "največ članov v ekipi".
-            </p>
-          )}
-        </div>
+        <Input
+          label="Največ članov v ekipi"
+          options={{
+            id: 'maxMembers',
+            type: 'number',
+          }}
+          invalid={maxMembersInvalid}
+          onChange={maxMembersOnChangeHandler}
+          value={maxMembers}
+        />
         <div className="flex items-center justify-between">
           <button
             className="button focus:outline-none focus:shadow-outline"
