@@ -66,6 +66,9 @@ function LoginForm() {
               placeholder: 'Vnesite uporabniško ime / elektronski naslov',
             }}
             invalid={usernameInvalid}
+            invalidLabel={
+              'Prosimo vnesite uporabniško ime / elektronski naslov.'
+            }
             onChange={usernameOnChangeHandler}
             value={username}
           />
@@ -77,6 +80,7 @@ function LoginForm() {
               placeholder: 'Vnesite geslo',
             }}
             invalid={passwordInvalid}
+            invalidLabel={'Prosimo vnesite geslo.'}
             onChange={passwordOnChangeHandler}
             value={password}
           />

@@ -96,6 +96,7 @@ function NewEvent() {
             placeholder: 'Vnesite ime dogodka',
           }}
           invalid={nameInvalid}
+          invalidLabel={'Prosimo vnesite ime dogodka.'}
           onChange={nameOnChangeHandler}
           value={name}
         />
@@ -108,30 +109,33 @@ function NewEvent() {
             placeholder: 'Vnesite datum dogodka',
           }}
           invalid={dateInvalid}
+          invalidLabel={'Prosimo vnesite datum dogodka.'}
           onChange={dateOnChangeHandler}
           value={date}
         />
-
         {/* Min Members */}
         <Input
           label="Najmanj članov v ekipi"
           options={{
             id: 'minMembers',
             type: 'number',
+            min: 1,
           }}
           invalid={minMembersInvalid}
+          invalidLabel={'Prosimo vnesite najmanj članov v ekipi.'}
           onChange={minMembersOnChangeHandler}
           value={minMembers}
         />
-
         {/* Max Members */}
         <Input
           label="Največ članov v ekipi"
           options={{
             id: 'maxMembers',
             type: 'number',
+            min: 1,
           }}
           invalid={maxMembersInvalid}
+          invalidLabel={'Prosimo vnesite največ članov v ekipi.'}
           onChange={maxMembersOnChangeHandler}
           value={maxMembers}
         />

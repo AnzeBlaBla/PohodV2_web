@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Input({ label, options, invalid, onChange, value }) {
+function Input({ label, options, invalid, invalidLabel, onChange, value }) {
   return (
     <div className="mb-4">
       <label
@@ -17,11 +17,7 @@ function Input({ label, options, invalid, onChange, value }) {
         onChange={event => onChange(event)}
         value={value}
       />
-      {invalid && (
-        <p className="text-red-500 text-xs italic">
-          Prosimo vnesite uporabniško ime / elektronski naslov.
-        </p>
-      )}
+      {invalid && <p className="text-red-500 text-xs italic">{invalidLabel}</p>}
     </div>
   );
 }
