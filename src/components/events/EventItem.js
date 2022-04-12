@@ -23,8 +23,21 @@ function EventItem({ event, showDetails, onReloadEvent }) {
       });
   };
 
+  const postPoints = points => {
+    request(`/points/${event.event_id}`, 'PUT', {
+      points,
+    })
+      .then(res => {
+        onReloadEvent();
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   const onMarkerClickHandler = e => {
-    console.log(e);
+    const updatedPoints = event.points.filter(point => point.point_id !== e);
+    postPoints(updatedPoints);
   };
 
   const onMapClickHandler = e => {
@@ -38,18 +51,7 @@ function EventItem({ event, showDetails, onReloadEvent }) {
       location_long: lng,
     };
 
-    console.log(point);
-
-    request(`/points/${event.event_id}`, 'PUT', {
-      points: [...event.points, point],
-    })
-      .then(res => {
-        console.log(res);
-        onReloadEvent();
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    postPoints([...event.points, point]);
   };
 
   return (

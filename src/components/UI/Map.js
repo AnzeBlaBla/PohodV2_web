@@ -39,12 +39,17 @@ function Map({
           <Marker
             position={[+point.location_lat, +point.location_long]}
             key={point.point_id}
-            eventHandlers={{
-              click: onMarkerClickHandler,
-            }}
           >
             <Popup>
-              <span>{point.name}</span>
+              <p>{point.name}</p>
+              {onMarkerClickHandler && (
+                <button
+                  className="button-danger"
+                  onClick={onMarkerClickHandler.bind(null, point.point_id)}
+                >
+                  Izbriši
+                </button>
+              )}
             </Popup>
           </Marker>
         ))}
