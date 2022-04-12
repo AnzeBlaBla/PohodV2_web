@@ -1,20 +1,40 @@
-import React from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
-import useRequest from '../../hooks/useRequest';
+import { request } from '../../utils/functions';
 
 import EventItem from '../../components/events/EventItem';
 
 function EventDetails() {
   const { id } = useParams();
 
-  const { data, error, loading } = useRequest(`/events/${id}`);
+  const [event, setEvent] = useState(null);
+
+  const getEvent = useCallback(() => {
+    request(`/events/${id}`)
+      .then(res => {
+        setEvent(res);
+      })
+      .catch(err => console.log(err));
+  }, [id]);
+
+  useEffect(() => {
+    getEvent();
+  }, [getEvent]);
+
+  const onReloadEventHandler = () => {
+    getEvent();
+  };
 
   return (
     <>
-      {loading && <p>Loading...</p>}
-      {error && <p>{error.message}</p>}
-      {data && <EventItem showDetails={true} event={data} />}
+      {event && (
+        <EventItem
+          showDetails={true}
+          event={event}
+          onReloadEvent={onReloadEventHandler}
+        />
+      )}
     </>
   );
 }
