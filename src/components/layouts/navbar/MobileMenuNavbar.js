@@ -27,6 +27,20 @@ function MobileNavbarMenu({
             </NavLink>
           </li>
         )}
+      {loggedIn && (
+        <li>
+          <NavLink to="/groups" className={menuNavbarLinkStyles}>
+            Skupine
+          </NavLink>
+        </li>
+      )}
+      {loggedIn && (
+        <li>
+          <NavLink to="/leaderboard" className={menuNavbarLinkStyles}>
+            Rezultati
+          </NavLink>
+        </li>
+      )}
       {!loggedIn && (
         <li>
           <NavLink to="/login" className={menuNavbarLinkStyles}>
@@ -34,15 +48,6 @@ function MobileNavbarMenu({
           </NavLink>
         </li>
       )}
-
-      <li>
-        {loggedIn && (
-          <NavLink to="/leaderboard" className={menuNavbarLinkStyles}>
-            Rezultati
-          </NavLink>
-        )}
-      </li>
-
       {loggedIn && (
         <li>
           <a

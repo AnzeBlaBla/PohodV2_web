@@ -4,6 +4,7 @@ import Home from '../../pages/Home';
 import Login from '../../pages/Login';
 import Leaderboard from '../../pages/Leaderboard';
 import Events from '../../pages/events/Events';
+import Groups from '../../pages/groups/Groups';
 import NoPage from '../../pages/NoPage';
 
 import Navbar from '../layouts/Navbar';
@@ -33,12 +34,13 @@ function RoutesList() {
           <Route exact path="/leaderboard" element={<Leaderboard />} />
         )}
         {/* Events */}
-        {userExists() &&
-          user.user_type === userTypes.ADMIN &&
-          Object.keys(user).length > 0 && (
-            <Route path="/events/*" element={<Events />} />
-          )}
+        {userExists() && user.user_type === userTypes.ADMIN && (
+          <Route path="/events/*" element={<Events />} />
+        )}
         {/* Groups */}
+        {userExists() && user.user_type === userTypes.USER && (
+          <Route path="/groups/*" element={<Groups user={user} />} />
+        )}
         {/* 404 Page */}
         <Route path="*" element={<NoPage />} />
       </Routes>

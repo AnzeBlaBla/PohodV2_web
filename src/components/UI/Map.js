@@ -9,7 +9,7 @@ import {
 
 const position = [46.386079810551266, 15.087464857546308];
 
-function HandleMapClick({ onMapClickHandler }) {
+function HandleMapClick({ onMapClickHandler = () => {} }) {
   useMapEvents({
     click: onMapClickHandler,
   });
@@ -19,8 +19,8 @@ function HandleMapClick({ onMapClickHandler }) {
 function Map({
   points = [],
   className = 'leaflet-container',
-  onMarkerClickHandler,
-  onMapClickHandler,
+  onMarkerClickHandler = () => {},
+  onMapClickHandler = () => {},
 } = {}) {
   return (
     <div className={className}>

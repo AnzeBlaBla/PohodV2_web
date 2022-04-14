@@ -18,14 +18,19 @@ function NormalNavbar({ loggedIn, navbarNavLinkStyles, user }) {
             Dogodki
           </NavLink>
         )}
-      {!loggedIn && (
-        <NavLink to="/login" className={navbarNavLinkStyles}>
-          Prijavi se
+      {loggedIn && (
+        <NavLink to="/groups" className={navbarNavLinkStyles}>
+          Skupine
         </NavLink>
       )}
       {loggedIn && (
         <NavLink to="/leaderboard" className={navbarNavLinkStyles}>
           Rezultati
+        </NavLink>
+      )}
+      {!loggedIn && (
+        <NavLink to="/login" className={navbarNavLinkStyles}>
+          Prijavi se
         </NavLink>
       )}
     </div>
