@@ -27,13 +27,15 @@ function MobileNavbarMenu({
             </NavLink>
           </li>
         )}
-      {loggedIn && (
-        <li>
-          <NavLink to="/groups" className={menuNavbarLinkStyles}>
-            Skupine
-          </NavLink>
-        </li>
-      )}
+      {loggedIn &&
+        user.user_type === userTypes.USER &&
+        Object.keys(user).length > 0 && (
+          <li>
+            <NavLink to="/groups" className={menuNavbarLinkStyles}>
+              Skupine
+            </NavLink>
+          </li>
+        )}
       {loggedIn && (
         <li>
           <NavLink to="/leaderboard" className={menuNavbarLinkStyles}>

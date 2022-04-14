@@ -18,11 +18,13 @@ function NormalNavbar({ loggedIn, navbarNavLinkStyles, user }) {
             Dogodki
           </NavLink>
         )}
-      {loggedIn && (
-        <NavLink to="/groups" className={navbarNavLinkStyles}>
-          Skupine
-        </NavLink>
-      )}
+      {loggedIn &&
+        user.user_type === userTypes.USER &&
+        Object.keys(user).length > 0 && (
+          <NavLink to="/groups" className={navbarNavLinkStyles}>
+            Skupine
+          </NavLink>
+        )}
       {loggedIn && (
         <NavLink to="/leaderboard" className={navbarNavLinkStyles}>
           Rezultati
