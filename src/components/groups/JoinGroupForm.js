@@ -1,9 +1,14 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { request } from '../../utils/functions';
 
 import Card from '../UI/Card';
 import Input from '../UI/Input';
 
 function JoinGroupForm() {
+  const navigate = useNavigate();
+
   const [groupCode, setGroupCode] = useState('');
   const [groupCodeInvalid, setGroupCodeInvalid] = useState(false);
 
@@ -21,7 +26,13 @@ function JoinGroupForm() {
       return;
     }
 
-    console.log(groupCode);
+    request(`/groups/${groupCode}`, 'PUT')
+      .then(() => {
+        navigate('/groups/my_group', { replace: true });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (
