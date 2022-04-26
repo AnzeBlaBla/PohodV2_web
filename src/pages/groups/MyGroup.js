@@ -1,7 +1,7 @@
 import React from 'react';
 
-function MyGroup() {
-  return <div>MyGroup</div>;
+function MyGroup({ user }) {
+  return <div>MyGroup {user.group.group_id}</div>;
 }
 
 export default MyGroup;

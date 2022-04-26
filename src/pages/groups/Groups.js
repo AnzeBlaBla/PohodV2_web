@@ -54,7 +54,9 @@ function Groups({ user }) {
         <Routes>
           {!user.group && <Route path="new" element={<NewGroup />} />}
           {!user.group && <Route path="join" element={<JoinGroup />} />}
-          {user.group && <Route path="my_group" element={<MyGroup />} />}
+          {user.group && (
+            <Route path="my_group" element={<MyGroup user={user} />} />
+          )}
         </Routes>
       </Card>
     </Container>
