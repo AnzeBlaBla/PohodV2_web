@@ -3,7 +3,7 @@ import React from 'react';
 function SelectEvent({ events, selectedEvent, eventOnChangeHandler }) {
   return (
     <div className="flex justify-center">
-      <div className="mb-3 xl:w-96">
+      <div className="mb-3 w-full">
         <select
           className="select focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           onChange={eventOnChangeHandler}

@@ -30,16 +30,18 @@ function Groups({ user }) {
   ]);
 
   useEffect(() => {
+    if (user.group) {
+      setLabels(['Moja Skupina']);
+      setLinks(['/groups/my_group']);
+    } else {
+      setLabels(['Nova Skupina', 'Pridruži Se']);
+      setLinks(['/groups/new', '/groups/join']);
+    }
+
     if (pathname === '/groups') {
       if (user.group) {
-        setLabels(['Moja Skupina']);
-        setLinks(['/groups/my_group']);
-
         navigate('/groups/my_group');
       } else {
-        setLabels(['Nova Skupina', 'Pridruži Se']);
-        setLinks(['/groups/new', '/groups/join']);
-
         navigate('/groups/join');
       }
     }
