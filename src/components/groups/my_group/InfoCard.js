@@ -5,7 +5,7 @@ import MembersList from './MembersList';
 export default function InfoCard({ user }) {
   return (
     <div className="mt-5">
-      <h2 className="p-3 bg-blue-700 text-white text-center text-2xl font-bold">
+      <h2 className="p-3 bg-blue-700 text-white text-2xl font-bold rounded text-center">
         {user.group.name}
       </h2>
       <div>
