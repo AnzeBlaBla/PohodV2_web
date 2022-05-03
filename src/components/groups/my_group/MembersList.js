@@ -1,10 +1,6 @@
-import { useEffect } from 'react';
+import React from 'react';
 
 export default function MembersList({ user }) {
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   return (
     <div className="my-5">
       <h2 className="text-xl font-bold mb-3">Člani skupine</h2>
