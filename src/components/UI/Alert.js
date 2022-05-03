@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Alert({ title, text, type }) {
+function Alert({ title, text, type, children }) {
   const getAlertClass = () => {
     switch (type) {
       case 'success':
@@ -17,7 +17,8 @@ function Alert({ title, text, type }) {
   return (
     <div className={`${getAlertClass()} border-l-4  p-4 my-4`} role="alert">
       <p className="font-bold">{title}</p>
-      <small>{text}</small>
+      {!children && <small>{text}</small>}
+      {children}
     </div>
   );
 }
