@@ -10,6 +10,8 @@ function GlobalContextProvider({ children }) {
 
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false);
 
+  const [notification, setNotification] = useState(null);
+
   useEffect(() => {
     setShowLoadingSpinner(true);
     request('/me')
@@ -29,6 +31,14 @@ function GlobalContextProvider({ children }) {
         setUser({});
       });
   }, []);
+
+  useEffect(() => {
+    if (notification) {
+      setTimeout(() => {
+        setNotification(null);
+      }, 5000);
+    }
+  }, [notification, setNotification]);
 
   const login = (email, password) => {
     return new Promise((resolve, reject) => {
@@ -87,6 +97,8 @@ function GlobalContextProvider({ children }) {
     logout,
     showLoadingSpinner,
     setShowLoadingSpinner,
+    notification,
+    setNotification,
   };
 
   return <Provider value={value}>{children}</Provider>;
