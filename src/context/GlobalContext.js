@@ -8,6 +8,8 @@ function GlobalContextProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState({});
 
+  const [showLoadingSpinner, setShowLoadingSpinner] = useState(false);
+
   useEffect(() => {
     request('/me')
       .then(data => {
@@ -27,8 +29,10 @@ function GlobalContextProvider({ children }) {
 
   const login = (email, password) => {
     return new Promise((resolve, reject) => {
+      setShowLoadingSpinner(true);
       request('/auth/login', 'POST', { email, password })
         .then(data => {
+          setShowLoadingSpinner(false);
           if (data) {
             setLoggedIn(true);
             setUser(data);
@@ -39,6 +43,8 @@ function GlobalContextProvider({ children }) {
           resolve(data);
         })
         .catch(err => {
+          setShowLoadingSpinner(false);
+
           setLoggedIn(false);
           setUser({});
 
@@ -50,13 +56,18 @@ function GlobalContextProvider({ children }) {
 
   const logout = () => {
     return new Promise((resolve, reject) => {
+      setShowLoadingSpinner(true);
       request('/auth/logout', 'POST')
         .then(data => {
+          setShowLoadingSpinner(false);
+
           setLoggedIn(false);
           setUser({});
           resolve(data);
         })
         .catch(err => {
+          setShowLoadingSpinner(false);
+
           setLoggedIn(false);
           setUser({});
 
@@ -71,6 +82,8 @@ function GlobalContextProvider({ children }) {
     user,
     login,
     logout,
+    showLoadingSpinner,
+    setShowLoadingSpinner,
   };
 
   return <Provider value={value}>{children}</Provider>;
