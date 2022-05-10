@@ -1,9 +1,18 @@
 import React from 'react';
 
+import { useGlobalContext } from '../../../context/GlobalContext';
+
 import MembersList from './MembersList';
 
 export default function InfoCard({ user }) {
+  const { setNotification } = useGlobalContext();
+
   const copyCodeHandler = () => {
+    setNotification({
+      title: 'Koda, skupine je bila kopirana!',
+      type: 'success',
+    });
+
     const code = user.group.code;
     navigator.clipboard.writeText(code);
   };
