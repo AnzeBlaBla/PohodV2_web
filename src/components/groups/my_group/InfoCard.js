@@ -75,9 +75,14 @@ export default function InfoCard({ user, onReloadGroup }) {
       </div>
       <MembersList user={user} />
       <div className="flex justify-center items-center">
-        <button className="button-warning mx-3" onClick={regenerateCodeHandler}>
-          Regeneriraj kodo
-        </button>
+        {user.user_id === user.group.leader_id && (
+          <button
+            className="button-warning mx-3"
+            onClick={regenerateCodeHandler}
+          >
+            Regeneriraj kodo
+          </button>
+        )}
         <button className="button-danger" onClick={leaveGroupHandler}>
           Zapusti skupino
         </button>
