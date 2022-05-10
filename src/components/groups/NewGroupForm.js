@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useGlobalContext } from '../../context/GlobalContext';
+
 import { request } from '../../utils/functions';
 
 import Card from '../UI/Card';
@@ -10,6 +12,8 @@ import SelectEvent from '../leaderboard/SelectEvent';
 
 function NewGroupForm() {
   const navigate = useNavigate();
+
+  const { setShowLoadingSpinner } = useGlobalContext();
 
   const [groupName, setGroupName] = useState('');
   const [groupNameInvalid, setGroupNameInvalid] = useState(false);
@@ -39,24 +43,30 @@ function NewGroupForm() {
       return;
     }
 
+    setShowLoadingSpinner(true);
     request('/groups', 'POST', { name: groupName, event_id: selectedEvent })
       .then(data => {
+        setShowLoadingSpinner(false);
         navigate('/groups/my_group', { replace: true });
       })
       .catch(err => {
+        setShowLoadingSpinner(false);
         console.log(err);
       });
   };
 
   useEffect(() => {
+    setShowLoadingSpinner(true);
     request('/events')
       .then(data => {
+        setShowLoadingSpinner(false);
         setEvents(data);
       })
       .catch(err => {
+        setShowLoadingSpinner(false);
         console.log('Error fetching events', err);
       });
-  }, []);
+  }, [setShowLoadingSpinner]);
 
   return (
     <Card>

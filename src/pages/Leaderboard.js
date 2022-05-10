@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { useGlobalContext } from '../context/GlobalContext';
+
 import useProtectedRoute from '../hooks/useProtectedRoute';
 
 import { request } from '../utils/functions';
@@ -14,20 +16,25 @@ import Table from '../components/UI/Table';
 function Leaderboard() {
   useProtectedRoute('required');
 
+  const { setShowLoadingSpinner } = useGlobalContext();
+
   const [events, setEvents] = useState([]);
   const [groups, setGroups] = useState([]);
 
   const [selectedEvent, setSelectedEvent] = useState('');
 
   useEffect(() => {
+    setShowLoadingSpinner(true);
     request('/events')
       .then(data => {
+        setShowLoadingSpinner(false);
         setEvents(data);
       })
       .catch(err => {
+        setShowLoadingSpinner(false);
         console.log('Error fetching events', err);
       });
-  }, []);
+  }, [setShowLoadingSpinner]);
 
   const eventOnChangeHandler = event => {
     setSelectedEvent(event.target.value);
@@ -35,15 +42,18 @@ function Leaderboard() {
 
   useEffect(() => {
     if (selectedEvent) {
+      setShowLoadingSpinner(true);
       request(`/leaderboards/${selectedEvent}`)
         .then(data => {
+          setShowLoadingSpinner(false);
           setGroups(data);
         })
         .catch(err => {
+          setShowLoadingSpinner(false);
           console.log('Error fetching groups', err);
         });
     }
-  }, [selectedEvent]);
+  }, [selectedEvent, setShowLoadingSpinner]);
 
   return (
     <Container mode="page">

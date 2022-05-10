@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import { useGlobalContext } from '../../context/GlobalContext';
+
 import Card from '../UI/Card';
 import Map from '../UI/Map';
 
@@ -11,26 +13,34 @@ import { formatDate, request } from '../../utils/functions';
 function EventItem({ event, showDetails, onReloadEvent }) {
   const navigate = useNavigate();
 
+  const { setShowLoadingSpinner } = useGlobalContext();
+
   const [showEditForm, setShowEditForm] = useState(false);
 
   const onDeleteHandler = () => {
+    setShowLoadingSpinner(true);
     request(`/events/${event.event_id}`, 'DELETE')
       .then(() => {
+        setShowLoadingSpinner(false);
         navigate('/events/all');
       })
       .catch(err => {
+        setShowLoadingSpinner(false);
         console.log(err);
       });
   };
 
   const postPoints = points => {
+    setShowLoadingSpinner(true);
     request(`/points/${event.event_id}`, 'PUT', {
       points,
     })
       .then(res => {
+        setShowLoadingSpinner(false);
         onReloadEvent();
       })
       .catch(e => {
+        setShowLoadingSpinner(false);
         console.log(e);
       });
   };

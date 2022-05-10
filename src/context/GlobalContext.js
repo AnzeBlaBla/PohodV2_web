@@ -11,8 +11,10 @@ function GlobalContextProvider({ children }) {
   const [showLoadingSpinner, setShowLoadingSpinner] = useState(false);
 
   useEffect(() => {
+    setShowLoadingSpinner(true);
     request('/me')
       .then(data => {
+        setShowLoadingSpinner(false);
         if (data) {
           setLoggedIn(true);
           setUser(data);
@@ -22,6 +24,7 @@ function GlobalContextProvider({ children }) {
         }
       })
       .catch(err => {
+        setShowLoadingSpinner(false);
         setLoggedIn(false);
         setUser({});
       });

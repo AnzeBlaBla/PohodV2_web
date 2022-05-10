@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useGlobalContext } from '../../context/GlobalContext';
+
 import { request } from '../../utils/functions';
 
 import Card from '../UI/Card';
@@ -8,6 +10,8 @@ import Input from '../UI/Input';
 
 function JoinGroupForm() {
   const navigate = useNavigate();
+
+  const { setShowLoadingSpinner } = useGlobalContext();
 
   const [groupCode, setGroupCode] = useState('');
   const [groupCodeInvalid, setGroupCodeInvalid] = useState(false);
@@ -26,11 +30,14 @@ function JoinGroupForm() {
       return;
     }
 
+    setShowLoadingSpinner(true);
     request(`/groups/${groupCode}`, 'PUT')
       .then(() => {
+        setShowLoadingSpinner(false);
         navigate('/groups/my_group', { replace: true });
       })
       .catch(error => {
+        setShowLoadingSpinner(false);
         console.log(error);
       });
   };

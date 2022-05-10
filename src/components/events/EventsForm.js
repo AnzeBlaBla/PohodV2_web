@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useGlobalContext } from '../../context/GlobalContext';
+
 import { request } from '../../utils/functions';
 
 import Card from '../UI/Card';
@@ -8,6 +10,8 @@ import Input from '../UI/Input';
 
 function EventsForm({ data = {}, method = 'POST', show = true } = {}) {
   const navigate = useNavigate();
+
+  const { setShowLoadingSpinner } = useGlobalContext();
 
   const [name, setName] = useState(data.name || '');
   const [nameInvalid, setNameInvalid] = useState(false);
@@ -70,6 +74,7 @@ function EventsForm({ data = {}, method = 'POST', show = true } = {}) {
       return;
     }
 
+    setShowLoadingSpinner(true);
     request(`/events${method === 'PUT' ? `/${data.event_id}` : ''}`, method, {
       name,
       date,
@@ -77,11 +82,13 @@ function EventsForm({ data = {}, method = 'POST', show = true } = {}) {
       max_groups_members: maxMembers,
     })
       .then(data => {
+        setShowLoadingSpinner(false);
         navigate('/events/all', {
           replace: true,
         });
       })
       .catch(err => {
+        setShowLoadingSpinner(false);
         console.log(err);
       });
   };
