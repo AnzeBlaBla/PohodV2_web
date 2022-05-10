@@ -33,11 +33,17 @@ function GlobalContextProvider({ children }) {
   }, []);
 
   useEffect(() => {
+    let timer;
+
     if (notification) {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         setNotification(null);
       }, 5000);
     }
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [notification, setNotification]);
 
   const login = (email, password) => {

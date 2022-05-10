@@ -1,11 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useGlobalContext } from '../../../context/GlobalContext';
 
+import { request } from '../../../utils/functions';
+
 import MembersList from './MembersList';
 
-export default function InfoCard({ user }) {
-  const { setNotification } = useGlobalContext();
+export default function InfoCard({ user, onReloadGroup }) {
+  const navigate = useNavigate();
+
+  const { setNotification, setShowLoadingSpinner } = useGlobalContext();
 
   const copyCodeHandler = () => {
     setNotification({
@@ -15,6 +20,38 @@ export default function InfoCard({ user }) {
 
     const code = user.group.code;
     navigator.clipboard.writeText(code);
+  };
+
+  const leaveGroupHandler = () => {
+    setShowLoadingSpinner(true);
+    request('/groups/leave', 'POST')
+      .then(data => {
+        setShowLoadingSpinner(false);
+        navigate('/groups/new');
+      })
+      .catch(err => {
+        setShowLoadingSpinner(false);
+        console.log(err);
+      });
+  };
+
+  const regenerateCodeHandler = () => {
+    setShowLoadingSpinner(true);
+    request(`/groups/${user.group.group_id}/code`, 'PUT')
+      .then(() => {
+        setShowLoadingSpinner(false);
+
+        navigate('/groups');
+
+        setNotification({
+          title: 'Koda, skupine je bila posodobljena!',
+          type: 'success',
+        });
+      })
+      .catch(err => {
+        setShowLoadingSpinner(false);
+        console.log(err);
+      });
   };
 
   return (
@@ -38,8 +75,12 @@ export default function InfoCard({ user }) {
       </div>
       <MembersList user={user} />
       <div className="flex justify-center items-center">
-        <button className="button-warning mx-3">Regeneriraj kodo</button>
-        <button className="button-danger">Zapusti skupino</button>
+        <button className="button-warning mx-3" onClick={regenerateCodeHandler}>
+          Regeneriraj kodo
+        </button>
+        <button className="button-danger" onClick={leaveGroupHandler}>
+          Zapusti skupino
+        </button>
       </div>
     </div>
   );
