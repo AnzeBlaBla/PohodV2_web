@@ -23,8 +23,8 @@ export default function MyGroupAlert({
               {user.group.members.length > maxGroupMembers
                 ? 'preveč'
                 : 'premalo'}{' '}
-              članov v skupini ({user.group.members.length}), kar pomeni, da se
-              dogodka ne bo smela udeležiti.<br></br>
+              članov ({user.group.members.length}), kar pomeni, da se dogodka ne
+              bo smela udeležiti.<br></br>
               Najmanjše število članov v ekipi za ta dogodek: {minGroupMembers}
               <br></br>
               Največje število članov v ekipi za ta dogodek: {maxGroupMembers}.

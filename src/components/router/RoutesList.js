@@ -24,9 +24,7 @@ function RoutesList() {
       <Navbar user={user} />
       <Routes>
         {/* Home Page */}
-        {userExists() && (
-          <Route exact path="/" element={<Home user={user} />} />
-        )}
+        {<Route exact path="/" element={<Home user={user} />} />}
         {/* Login Page */}
         <Route exact path="/login" element={<Login />} />
         {/* Leaderboard Page */}

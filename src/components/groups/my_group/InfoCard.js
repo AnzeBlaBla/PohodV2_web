@@ -3,6 +3,11 @@ import React from 'react';
 import MembersList from './MembersList';
 
 export default function InfoCard({ user }) {
+  const copyCodeHandler = () => {
+    const code = user.group.code;
+    navigator.clipboard.writeText(code);
+  };
+
   return (
     <div className="mt-5">
       <h2 className="p-3 bg-blue-700 text-white text-2xl font-bold rounded text-center">
@@ -15,7 +20,10 @@ export default function InfoCard({ user }) {
         <span className="block text-center text-4xl font-bold">
           {user.group.code}
         </span>
-        <button className="button-success mx-auto block my-3">
+        <button
+          className="button-success mx-auto block my-3"
+          onClick={copyCodeHandler}
+        >
           Kopiraj kodo
         </button>
       </div>
