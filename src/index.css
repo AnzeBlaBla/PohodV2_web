@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Light mode */
+:root {
+  --body-bg: #ffffff;
+  --body-color: #000;
+}
+
 body {
+  background: var(--body-bg);
+  color: var(--body-color);
   overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 .leaflet-container {
@@ -16,6 +28,18 @@ body {
   height: 50vh;
 }
 
+.apply-background {
+  background: var(--body-bg);
+}
+
+.dark {
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+.dark .prevent-invert {
+  filter: invert(1) hue-rotate(180deg) !important;
+}
+
 @layer components {
   .container {
     @apply max-w-6xl mx-auto px-4;
@@ -24,9 +48,8 @@ body {
   .small-container {
     @apply w-full max-w-lg mx-auto;
   }
-
   .card {
-    @apply bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4;
+    @apply shadow-md rounded px-8 pt-6 pb-8 mb-4;
   }
 
   .card-primary-title {

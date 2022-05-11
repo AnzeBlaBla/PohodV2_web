@@ -33,11 +33,16 @@ export default function MembersList({ user }) {
         {user.group.members.map(member => (
           <div
             key={member.user_id}
-            className="border-2 p-4 flex justify-between items-center mb-1"
+            className="p-4 flex justify-between items-center mb-1 shadow-md"
           >
             <span>
               {member.first_name} {member.last_name}
             </span>
+            {member.user_id === user.group.leader_id && (
+              <span className="bg-blue-700 text-white font-bold py-1 px-3">
+                Vodja
+              </span>
+            )}
             {member.user_id !== user.group.leader_id &&
               user.user_id === user.group.leader_id && (
                 <button

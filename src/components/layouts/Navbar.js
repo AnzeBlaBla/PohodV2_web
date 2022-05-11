@@ -40,7 +40,7 @@ function Navbar({ user }) {
   };
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="shadow-lg apply-background">
       <div className="container">
         <div className="flex justify-between">
           <div className="flex space-x-7">

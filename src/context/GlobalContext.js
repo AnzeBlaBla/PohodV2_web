@@ -12,7 +12,15 @@ function GlobalContextProvider({ children }) {
 
   const [notification, setNotification] = useState(null);
 
+  const [schemeTheme, setSchemeTheme] = useState('light');
+
   useEffect(() => {
+    const theme = localStorage.getItem('theme');
+    if (theme) {
+      setSchemeTheme(theme);
+      applySchemeTheme();
+    }
+
     setShowLoadingSpinner(true);
     request('/me')
       .then(data => {
@@ -45,6 +53,23 @@ function GlobalContextProvider({ children }) {
       clearTimeout(timer);
     };
   }, [notification, setNotification]);
+
+  const toggleSchemeTheme = () => {
+    localStorage.setItem('theme', schemeTheme === 'light' ? 'dark' : 'light');
+    setSchemeTheme(schemeTheme === 'light' ? 'dark' : 'light');
+
+    applySchemeTheme();
+  };
+
+  const applySchemeTheme = () => {
+    const theme = localStorage.getItem('theme');
+
+    if (theme === 'light') {
+      document.body.classList.remove('dark');
+    } else {
+      document.body.classList.add('dark');
+    }
+  };
 
   const login = (email, password) => {
     return new Promise((resolve, reject) => {
@@ -105,6 +130,8 @@ function GlobalContextProvider({ children }) {
     setShowLoadingSpinner,
     notification,
     setNotification,
+    setSchemeTheme,
+    toggleSchemeTheme,
   };
 
   return <Provider value={value}>{children}</Provider>;
