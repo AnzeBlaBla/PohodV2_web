@@ -14,7 +14,7 @@ export default function ProfileSettings({ user }) {
   };
 
   return (
-    <div className="mt-10">
+    <div className="mt-5">
       <button className="button w-full" onClick={logoutHandler}>
         Izpiši se
       </button>

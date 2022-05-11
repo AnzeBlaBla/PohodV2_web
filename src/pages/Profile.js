@@ -15,6 +15,8 @@ import Card from '../components/UI/Card';
 function Profile({ user }) {
   useProtectedRoute('required');
 
+  console.log(user);
+
   return (
     <Container mode="page">
       <Card>
