@@ -1,10 +1,6 @@
-import { useState, useEffect } from 'react';
-
-import { useGlobalContext } from '../context/GlobalContext';
+import React from 'react';
 
 import useProtectedRoute from '../hooks/useProtectedRoute';
-
-import { request } from '../utils/functions';
 
 import ProfileInfo from '../components/users/ProfileInfo';
 import ProfileSettings from '../components/users/ProfileSettings';
@@ -14,8 +10,6 @@ import Card from '../components/UI/Card';
 
 function Profile({ user }) {
   useProtectedRoute('required');
-
-  console.log(user);
 
   return (
     <Container mode="page">
