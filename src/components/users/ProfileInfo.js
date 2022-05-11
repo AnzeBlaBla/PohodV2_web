@@ -14,7 +14,7 @@ export default function ProfileInfo({ user }) {
       ? 'Administrator'
       : user.user_type === '1'
       ? 'Učitelj'
-      : 'Učenec';
+      : 'Dijak';
 
   const [event, setEvent] = useState(null);
 
