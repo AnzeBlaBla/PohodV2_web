@@ -52,10 +52,7 @@ function MobileNavbarMenu({
       )}
       {loggedIn && (
         <li>
-          <NavLink
-            to="/profile"
-            className="block text-sm px-2 py-4 hover:bg-blue-700 hover:text-white transition duration-300"
-          >
+          <NavLink to="/profile" className={menuNavbarLinkStyles}>
             Moj Profil
           </NavLink>
         </li>
