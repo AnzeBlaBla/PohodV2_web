@@ -40,7 +40,7 @@ function JoinGroupForm() {
         setShowLoadingSpinner(false);
         setDialog({
           title: 'Napaka pri pridruževanju',
-          text: 'Prišlo je do napake pri pridruževanju. Poskusite znova.',
+          text: 'Prišlo je do napake pri pridruževanju. Prosimo preverite, če ste vnesli pravilno kodo skupine.',
         });
       });
   };

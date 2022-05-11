@@ -40,6 +40,10 @@ function NewGroupForm() {
     }
 
     if (selectedEvent.trim() === '') {
+      setDialog({
+        title: 'Napaka pri ustvarjanju skupine',
+        text: 'Prišlo je do napake pri ustvarjanju skupine. Prosimo izberite dogodek.',
+      });
       return;
     }
 
