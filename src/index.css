@@ -8,7 +8,8 @@
   --body-color: #000;
 }
 
-body {
+body,
+html {
   background: var(--body-bg);
   color: var(--body-color);
   overflow-x: hidden;
@@ -69,23 +70,23 @@ body {
   }
 
   .button {
-    @apply bg-blue-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-blue-700;
+    @apply bg-blue-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-blue-700 prevent-invert;
   }
 
   .button-danger {
-    @apply bg-red-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-red-700;
+    @apply bg-red-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-red-700 prevent-invert;
   }
 
   .button-warning {
-    @apply bg-orange-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-orange-700;
+    @apply bg-orange-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-orange-700 prevent-invert;
   }
 
   .button-success {
-    @apply bg-green-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-green-700;
+    @apply bg-green-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-green-700 prevent-invert;
   }
 
   .button-outline {
-    @apply bg-transparent  text-blue-700 border-2 border-blue-700 font-bold py-2 px-4 rounded outline-none hover:bg-blue-700 hover:text-white;
+    @apply bg-transparent  text-blue-700 border-2 border-blue-700 font-bold py-2 px-4 rounded outline-none hover:bg-blue-700 hover:text-white prevent-invert;
   }
 
   .button-large {
