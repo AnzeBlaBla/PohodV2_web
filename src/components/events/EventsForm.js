@@ -86,8 +86,8 @@ function EventsForm({ data = {}, method = 'POST', show = true } = {}) {
         setNotification({
           type: 'success',
           title: `Dogodek ${
-            method === 'PUT' ? 'posodobljen' : 'ustvarjen!'
-          } uspešno`,
+            method === 'PUT' ? 'posodobljen' : 'ustvarjen'
+          } uspešno!`,
         });
 
         navigate('/events/all', {

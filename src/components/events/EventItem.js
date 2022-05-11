@@ -67,7 +67,7 @@ function EventItem({ event, showDetails, onReloadEvent }) {
   return (
     <>
       <Card key={event.event_id}>
-        <h2 className="bg-cyan-600 text-white rounded p-4 font-bold text-xl">
+        <h2 className="bg-cyan-600 text-white rounded p-4 font-bold text-xl prevent-invert">
           {event.name}
         </h2>
         <p className="card-primary-text my-10 text-left">

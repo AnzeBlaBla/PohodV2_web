@@ -39,7 +39,7 @@ export default function MembersList({ user }) {
               {member.first_name} {member.last_name}
             </span>
             {member.user_id === user.group.leader_id && (
-              <span className="bg-blue-700 text-white font-bold py-1 px-3">
+              <span className="bg-blue-700 text-white font-bold py-1 px-3 prevent-invert">
                 Vodja
               </span>
             )}
