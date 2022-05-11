@@ -11,7 +11,7 @@ import Input from '../UI/Input';
 function EventsForm({ data = {}, method = 'POST', show = true } = {}) {
   const navigate = useNavigate();
 
-  const { setShowLoadingSpinner } = useGlobalContext();
+  const { setShowLoadingSpinner, setNotification } = useGlobalContext();
 
   const [name, setName] = useState(data.name || '');
   const [nameInvalid, setNameInvalid] = useState(false);
@@ -79,10 +79,17 @@ function EventsForm({ data = {}, method = 'POST', show = true } = {}) {
       name,
       date,
       min_group_members: minMembers,
-      max_groups_members: maxMembers,
+      max_group_members: maxMembers,
     })
       .then(data => {
         setShowLoadingSpinner(false);
+        setNotification({
+          type: 'success',
+          title: `Dogodek ${
+            method === 'PUT' ? 'posodobljen' : 'ustvarjen!'
+          } uspešno`,
+        });
+
         navigate('/events/all', {
           replace: true,
         });
