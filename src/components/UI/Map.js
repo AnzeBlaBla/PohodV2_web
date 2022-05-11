@@ -20,7 +20,7 @@ function Map({
   points = [],
   className = 'leaflet-container',
   onMarkerClickHandler = () => {},
-  onMapClickHandler = () => {},
+  onMapClickHandler,
 } = {}) {
   return (
     <div className={className}>
@@ -42,7 +42,7 @@ function Map({
           >
             <Popup>
               <p>{point.name}</p>
-              {onMarkerClickHandler && (
+              {onMapClickHandler && onMarkerClickHandler && (
                 <button
                   className="button-danger"
                   onClick={onMarkerClickHandler.bind(null, point.point_id)}
