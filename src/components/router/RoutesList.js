@@ -6,6 +6,7 @@ import Leaderboard from '../../pages/Leaderboard';
 import Events from '../../pages/events/Events';
 import Groups from '../../pages/groups/Groups';
 import NoPage from '../../pages/NoPage';
+import Profile from '../../pages/Profile';
 
 import Navbar from '../layouts/Navbar';
 
@@ -27,6 +28,10 @@ function RoutesList() {
         {<Route exact path="/" element={<Home user={user} />} />}
         {/* Login Page */}
         <Route exact path="/login" element={<Login />} />
+        {/* Profile Page */}
+        {userExists() && (
+          <Route exact path="/profile" element={<Profile user={user} />} />
+        )}
         {/* Leaderboard Page */}
         {userExists() && (
           <Route exact path="/leaderboard" element={<Leaderboard />} />
