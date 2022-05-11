@@ -7,7 +7,7 @@ import { request } from '../../utils/functions';
 import Map from '../UI/Map';
 
 function UserHome() {
-  const { user, setShowLoadingSpinner } = useGlobalContext();
+  const { user, setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [points, setPoints] = useState([]);
 
@@ -21,10 +21,13 @@ function UserHome() {
         })
         .catch(err => {
           setShowLoadingSpinner(false);
-          console.log(err);
+          setDialog({
+            title: 'Napaka pri pridobivanju točk',
+            text: 'Prišlo je do napake pri pridobivanju točk. Poskusite znova.',
+          });
         });
     }
-  }, [user]);
+  }, [user, setShowLoadingSpinner, setDialog]);
 
   return <Map points={points} />;
 }

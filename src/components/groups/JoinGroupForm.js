@@ -11,7 +11,7 @@ import Input from '../UI/Input';
 function JoinGroupForm() {
   const navigate = useNavigate();
 
-  const { setShowLoadingSpinner } = useGlobalContext();
+  const { setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [groupCode, setGroupCode] = useState('');
   const [groupCodeInvalid, setGroupCodeInvalid] = useState(false);
@@ -38,7 +38,10 @@ function JoinGroupForm() {
       })
       .catch(error => {
         setShowLoadingSpinner(false);
-        console.log(error);
+        setDialog({
+          title: 'Napaka pri pridruževanju',
+          text: 'Prišlo je do napake pri pridruževanju. Poskusite znova.',
+        });
       });
   };
 

@@ -7,10 +7,11 @@ import { request } from '../../../utils/functions';
 
 import MembersList from './MembersList';
 
-export default function InfoCard({ user, onReloadGroup }) {
+export default function InfoCard({ user }) {
   const navigate = useNavigate();
 
-  const { setNotification, setShowLoadingSpinner } = useGlobalContext();
+  const { setNotification, setShowLoadingSpinner, setDialog } =
+    useGlobalContext();
 
   const copyCodeHandler = () => {
     setNotification({
@@ -31,7 +32,10 @@ export default function InfoCard({ user, onReloadGroup }) {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        console.log(err);
+        setDialog({
+          title: 'Napaka pri zapuščanju skupine',
+          text: 'Prišlo je do napake pri zapuščanju skupine. Poskusite znova.',
+        });
       });
   };
 
@@ -50,13 +54,16 @@ export default function InfoCard({ user, onReloadGroup }) {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        console.log(err);
+        setDialog({
+          title: 'Napaka pri regeneriranju kode',
+          text: 'Prišlo je do napake pri regeneriranju kode. Poskusite znova.',
+        });
       });
   };
 
   return (
     <div className="mt-5">
-      <h2 className="p-3 bg-blue-700 text-white text-2xl font-bold rounded text-center">
+      <h2 className="p-3 bg-blue-700 text-white text-2xl font-bold text-center">
         {user.group.name}
       </h2>
       <div>

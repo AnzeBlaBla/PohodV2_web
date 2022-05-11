@@ -7,7 +7,7 @@ import EventsList from '../../components/events/EventsList';
 import { request } from '../../utils/functions';
 
 function AllEvents() {
-  const { setShowLoadingSpinner } = useGlobalContext();
+  const { setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [events, setEvents] = useState([]);
 
@@ -20,9 +20,12 @@ function AllEvents() {
       })
       .catch(error => {
         setShowLoadingSpinner(false);
-        console.log(error);
+        setDialog({
+          title: 'Napaka pri pridobivanju dogodkov',
+          text: 'Prišlo je do napake pri pridobivanju dogodkov. Poskusite znova.',
+        });
       });
-  }, [setShowLoadingSpinner]);
+  }, [setShowLoadingSpinner, setDialog]);
 
   return <EventsList events={events} />;
 }

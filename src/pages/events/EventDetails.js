@@ -10,7 +10,7 @@ import EventItem from '../../components/events/EventItem';
 function EventDetails() {
   const { id } = useParams();
 
-  const { setShowLoadingSpinner } = useGlobalContext();
+  const { setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [event, setEvent] = useState(null);
 
@@ -23,9 +23,12 @@ function EventDetails() {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        console.log(err);
+        setDialog({
+          title: 'Napaka pri pridobivanju dogodka',
+          text: 'Prišlo je do napake pri pridobivanju dogodka. Poskusite znova.',
+        });
       });
-  }, [id, setShowLoadingSpinner]);
+  }, [id, setShowLoadingSpinner, setDialog]);
 
   useEffect(() => {
     getEvent();

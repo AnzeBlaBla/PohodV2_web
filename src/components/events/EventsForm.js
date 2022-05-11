@@ -11,7 +11,8 @@ import Input from '../UI/Input';
 function EventsForm({ data = {}, method = 'POST', show = true } = {}) {
   const navigate = useNavigate();
 
-  const { setShowLoadingSpinner, setNotification } = useGlobalContext();
+  const { setShowLoadingSpinner, setNotification, setDialog } =
+    useGlobalContext();
 
   const [name, setName] = useState(data.name || '');
   const [nameInvalid, setNameInvalid] = useState(false);
@@ -96,7 +97,10 @@ function EventsForm({ data = {}, method = 'POST', show = true } = {}) {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        console.log(err);
+        setDialog({
+          title: 'Napaka pri ustvarjanju ali posodabljanju dogodka',
+          text: 'Prišlo je do napake pri ustvarjanju ali posodabljanju. Poskusite znova.',
+        });
       });
   };
 

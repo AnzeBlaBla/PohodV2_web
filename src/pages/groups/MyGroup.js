@@ -8,7 +8,7 @@ import MyGroupAlert from '../../components/groups/my_group/MyGroupAlert';
 import InfoCard from '../../components/groups/my_group/InfoCard';
 
 function MyGroup({ user }) {
-  const { setShowLoadingSpinner } = useGlobalContext();
+  const { setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [minGroupMembers, setMinGroupMembers] = useState(null);
   const [maxGroupMembers, setMaxGroupMembers] = useState(null);
@@ -24,9 +24,12 @@ function MyGroup({ user }) {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        console.log(err);
+        setDialog({
+          title: 'Napaka pri pridobivanju dogodka',
+          text: 'Prišlo je do napake pri pridobivanju dogodka. Poskusite znova.',
+        });
       });
-  }, [user, setShowLoadingSpinner]);
+  }, [user, setShowLoadingSpinner, setDialog]);
 
   return (
     <>

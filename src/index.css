@@ -50,7 +50,7 @@ html {
     @apply w-full max-w-lg mx-auto;
   }
   .card {
-    @apply shadow-md rounded px-8 pt-6 pb-8 mb-4;
+    @apply shadow-md px-8 pt-6 pb-8 mb-4;
   }
 
   .card-primary-title {
@@ -66,27 +66,27 @@ html {
   }
 
   .select {
-    @apply appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0;
+    @apply appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 transition ease-in-out m-0;
   }
 
   .button {
-    @apply bg-blue-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-blue-700 prevent-invert;
+    @apply bg-blue-500  text-white font-bold py-2 px-4 outline-none hover:bg-blue-700 prevent-invert;
   }
 
   .button-danger {
-    @apply bg-red-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-red-700 prevent-invert;
+    @apply bg-red-500  text-white font-bold py-2 px-4 outline-none hover:bg-red-700 prevent-invert;
   }
 
   .button-warning {
-    @apply bg-orange-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-orange-700 prevent-invert;
+    @apply bg-orange-500  text-white font-bold py-2 px-4 outline-none hover:bg-orange-700 prevent-invert;
   }
 
   .button-success {
-    @apply bg-green-500  text-white font-bold py-2 px-4 rounded outline-none hover:bg-green-700 prevent-invert;
+    @apply bg-green-500  text-white font-bold py-2 px-4 outline-none hover:bg-green-700 prevent-invert;
   }
 
   .button-outline {
-    @apply bg-transparent  text-blue-700 border-2 border-blue-700 font-bold py-2 px-4 rounded outline-none hover:bg-blue-700 hover:text-white prevent-invert;
+    @apply bg-transparent  text-blue-700 border-2 border-blue-700 font-bold py-2 px-4 outline-none hover:bg-blue-700 hover:text-white prevent-invert;
   }
 
   .button-large {

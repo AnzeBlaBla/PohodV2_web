@@ -6,7 +6,7 @@ function SecondaryNavbar({ loggedIn, logoutHandler }) {
       {loggedIn && (
         <a
           href="#!"
-          className="py-2 px-2 font-medium text-white bg-blue-700 rounded hover:bg-blue-600 transition duration-300 prevent-invert"
+          className="py-2 px-2 font-medium text-white bg-blue-700 hover:bg-blue-600 transition duration-300 prevent-invert"
           onClick={logoutHandler}
         >
           Izpiši se

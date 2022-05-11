@@ -6,6 +6,7 @@ import RoutesConfig from './components/router/RoutesConfig';
 
 import LoadingSpinner from './components/UI/LoadingSpinner';
 import Notification from './components/UI/Notification';
+import Modal from './components/UI/Modal';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <GlobalContextProvider>
         <LoadingSpinner />
         <Notification />
+        <Modal />
 
         <RoutesConfig />
       </GlobalContextProvider>

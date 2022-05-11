@@ -39,13 +39,7 @@ function LoginForm() {
       return;
     }
 
-    login(username, password)
-      .then(res => {
-        // navigate('/', { replace: true });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    login(username, password);
   };
 
   return (

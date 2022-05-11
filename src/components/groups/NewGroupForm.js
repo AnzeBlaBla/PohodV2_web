@@ -13,7 +13,7 @@ import SelectEvent from '../leaderboard/SelectEvent';
 function NewGroupForm() {
   const navigate = useNavigate();
 
-  const { setShowLoadingSpinner } = useGlobalContext();
+  const { setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [groupName, setGroupName] = useState('');
   const [groupNameInvalid, setGroupNameInvalid] = useState(false);
@@ -51,7 +51,10 @@ function NewGroupForm() {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        console.log(err);
+        setDialog({
+          title: 'Napaka pri ustvarjanju skupine',
+          text: 'Prišlo je do napake pri ustvarjanju skupine. Poskusite znova.',
+        });
       });
   };
 
@@ -64,9 +67,12 @@ function NewGroupForm() {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        console.log('Error fetching events', err);
+        setDialog({
+          title: 'Napaka pri pridobivanju dogodkov',
+          text: 'Prišlo je do napake pri pridobivanju dogodkov. Poskusite znova.',
+        });
       });
-  }, [setShowLoadingSpinner]);
+  }, [setShowLoadingSpinner, setDialog]);
 
   return (
     <Card>

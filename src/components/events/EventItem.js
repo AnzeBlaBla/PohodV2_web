@@ -13,7 +13,7 @@ import { formatDate, request } from '../../utils/functions';
 function EventItem({ event, showDetails, onReloadEvent }) {
   const navigate = useNavigate();
 
-  const { setShowLoadingSpinner } = useGlobalContext();
+  const { setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [showEditForm, setShowEditForm] = useState(false);
 
@@ -26,7 +26,10 @@ function EventItem({ event, showDetails, onReloadEvent }) {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        console.log(err);
+        setDialog({
+          title: 'Napaka pri brisanju',
+          text: 'Prišlo je do napake pri brisanju dogodka. Poskusite znova.',
+        });
       });
   };
 
@@ -41,7 +44,10 @@ function EventItem({ event, showDetails, onReloadEvent }) {
       })
       .catch(e => {
         setShowLoadingSpinner(false);
-        console.log(e);
+        setDialog({
+          title: 'Napaka pri točkah',
+          text: 'Prišlo je do napake pri spreminjanju točk. Poskusite znova.',
+        });
       });
   };
 
@@ -67,7 +73,7 @@ function EventItem({ event, showDetails, onReloadEvent }) {
   return (
     <>
       <Card key={event.event_id}>
-        <h2 className="bg-cyan-600 text-white rounded p-4 font-bold text-xl prevent-invert">
+        <h2 className="bg-cyan-600 text-white p-4 font-bold text-xl">
           {event.name}
         </h2>
         <p className="card-primary-text my-10 text-left">

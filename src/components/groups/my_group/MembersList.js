@@ -5,7 +5,8 @@ import { useGlobalContext } from '../../../context/GlobalContext';
 import { request } from '../../../utils/functions';
 
 export default function MembersList({ user }) {
-  const { setNotification, setShowLoadingSpinner } = useGlobalContext();
+  const { setNotification, setShowLoadingSpinner, setDialog } =
+    useGlobalContext();
 
   const kickMemberHandler = ({ user_id, first_name, last_name } = {}) => {
     setShowLoadingSpinner(true);
@@ -22,7 +23,10 @@ export default function MembersList({ user }) {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        console.log(err);
+        setDialog({
+          title: 'Napaka pri spreminjanju članov',
+          text: 'Prišlo je do napake pri spreminjanju članov. Poskusite znova.',
+        });
       });
   };
 
@@ -33,13 +37,13 @@ export default function MembersList({ user }) {
         {user.group.members.map(member => (
           <div
             key={member.user_id}
-            className="p-4 flex justify-between items-center mb-1 shadow-md"
+            className="p-4 flex justify-between items-center mb-3 shadow-md"
           >
             <span>
               {member.first_name} {member.last_name}
             </span>
             {member.user_id === user.group.leader_id && (
-              <span className="bg-blue-700 text-white font-bold py-1 px-3 prevent-invert">
+              <span className="bg-yellow-400 text-white font-bold py-1 px-3 prevent-invert">
                 Vodja
               </span>
             )}

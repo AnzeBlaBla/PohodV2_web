@@ -12,6 +12,8 @@ function GlobalContextProvider({ children }) {
 
   const [notification, setNotification] = useState(null);
 
+  const [dialog, setDialog] = useState(null);
+
   const [schemeTheme, setSchemeTheme] = useState('light');
 
   useEffect(() => {
@@ -33,10 +35,14 @@ function GlobalContextProvider({ children }) {
           setUser({});
         }
       })
-      .catch(err => {
+      .catch(() => {
         setShowLoadingSpinner(false);
         setLoggedIn(false);
         setUser({});
+        setDialog({
+          title: 'Napaka pri pridobivanju osebnih podatkov',
+          text: 'Prišlo je do napake pri pridobivanju osebnih podatkov. Poskusite znova.',
+        });
       });
   }, []);
 
@@ -92,7 +98,10 @@ function GlobalContextProvider({ children }) {
           setLoggedIn(false);
           setUser({});
 
-          console.log('err while logging in', err);
+          setDialog({
+            title: 'Prijava ni uspela',
+            text: 'Uporabniško ime ali geslo je napačno.',
+          });
           reject(err);
         });
     });
@@ -115,7 +124,10 @@ function GlobalContextProvider({ children }) {
           setLoggedIn(false);
           setUser({});
 
-          console.log('err while logging out', err.message);
+          setDialog({
+            title: 'Napaka pri izpisovanju',
+            text: 'Prišlo je do napake pri izpisovanju. Poskusite znova.',
+          });
           reject(err);
         });
     });
@@ -132,6 +144,8 @@ function GlobalContextProvider({ children }) {
     setNotification,
     setSchemeTheme,
     toggleSchemeTheme,
+    setDialog,
+    dialog,
   };
 
   return <Provider value={value}>{children}</Provider>;

@@ -16,7 +16,7 @@ import Table from '../components/UI/Table';
 function Leaderboard() {
   useProtectedRoute('required');
 
-  const { setShowLoadingSpinner } = useGlobalContext();
+  const { setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [events, setEvents] = useState([]);
   const [groups, setGroups] = useState([]);
@@ -32,9 +32,12 @@ function Leaderboard() {
       })
       .catch(err => {
         setShowLoadingSpinner(false);
-        console.log('Error fetching events', err);
+        setDialog({
+          title: 'Napaka pri pridobivanju dogodkov',
+          text: 'Prišlo je do napake pri pridobivanju dogodkov. Poskusite znova.',
+        });
       });
-  }, [setShowLoadingSpinner]);
+  }, [setShowLoadingSpinner, setDialog]);
 
   const eventOnChangeHandler = event => {
     setSelectedEvent(event.target.value);
@@ -50,10 +53,13 @@ function Leaderboard() {
         })
         .catch(err => {
           setShowLoadingSpinner(false);
-          console.log('Error fetching groups', err);
+          setDialog({
+            title: 'Napaka pri pridobivanju rezultatov',
+            text: 'Prišlo je do napake pri pridobivanju rezultatov. Poskusite znova.',
+          });
         });
     }
-  }, [selectedEvent, setShowLoadingSpinner]);
+  }, [selectedEvent, setShowLoadingSpinner, setDialog]);
 
   return (
     <Container mode="page">
