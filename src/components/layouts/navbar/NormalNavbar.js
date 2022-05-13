@@ -31,7 +31,7 @@ function NormalNavbar({ loggedIn, navbarNavLinkStyles, user }) {
         user.group &&
         user.group && (
           <NavLink to="/results" className={navbarNavLinkStyles}>
-            Mojo odgovori
+            Moji odgovori
           </NavLink>
         )}
       {loggedIn && (

@@ -11,7 +11,7 @@ export default function LoadingSpinner() {
       {showLoadingSpinner &&
         ReactDom.createPortal(
           <div className="fixed top-0 left-0 w-screen h-screen overflow-hidden z-[999]">
-            <div className="flex justify-center items-center w-full h-full bg-black/75 ">
+            <div className="flex justify-center items-center w-full h-full bg-black/75 prevent-invert">
               <span className="inline-block bg-blue-700 w-4 h-4 rounded-full mx-2 animate-bounce"></span>
               <span
                 className="inline-block bg-blue-900 w-4 h-4 rounded-full mx-2 animate-bounce"
