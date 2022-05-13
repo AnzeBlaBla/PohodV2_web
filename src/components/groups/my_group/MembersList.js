@@ -1,24 +1,28 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useGlobalContext } from '../../../context/GlobalContext';
 
 import { request } from '../../../utils/functions';
 
 export default function MembersList({ user }) {
+  const navigate = useNavigate();
+
   const { setNotification, setShowLoadingSpinner, setDialog } =
     useGlobalContext();
 
   const kickMemberHandler = ({ user_id, first_name, last_name } = {}) => {
     setShowLoadingSpinner(true);
-    console.log(`/groups/${user.group.group_id}/kick/${user_id}`);
-    request(`/groups/${user.group.group_id}/kick/${user_id}`, 'DELETE')
+    console.log(`/groups/kick/${user_id}`);
+    request(`/groups/kick/${user_id}`, 'DELETE')
       .then(data => {
-        console.log(data);
-
         setNotification({
           title: `Uporabnik ${first_name} ${last_name} je bil odstranjen!`,
           type: 'success',
         });
+
+        navigate('/groups');
+
         setShowLoadingSpinner(false);
       })
       .catch(err => {
