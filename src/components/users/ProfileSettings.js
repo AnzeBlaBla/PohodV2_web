@@ -15,6 +15,15 @@ export default function ProfileSettings({ user }) {
 
   return (
     <div className="mt-5">
+      <a
+        className="text-blue-600 prevent-invert"
+        href="https://malice.scv.si/students/password/new"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Spremeni geslo
+      </a>
+      <hr className="my-5"></hr>
       <button className="button-outline w-full" onClick={toggleSchemeTheme}>
         Preklopi med temami
       </button>
