@@ -7,6 +7,7 @@ import Events from '../../pages/events/Events';
 import Groups from '../../pages/groups/Groups';
 import NoPage from '../../pages/NoPage';
 import Profile from '../../pages/Profile';
+import Results from '../../pages/Results';
 
 import Navbar from '../layouts/Navbar';
 
@@ -31,6 +32,10 @@ function RoutesList() {
         {/* Profile Page */}
         {userExists() && (
           <Route exact path="/profile" element={<Profile user={user} />} />
+        )}
+        {/* Leaderboard Page */}
+        {userExists() && user.group && (
+          <Route exact path="/results" element={<Results />} />
         )}
         {/* Leaderboard Page */}
         {userExists() && (

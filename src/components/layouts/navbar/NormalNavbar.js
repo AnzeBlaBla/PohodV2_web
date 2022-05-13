@@ -25,6 +25,15 @@ function NormalNavbar({ loggedIn, navbarNavLinkStyles, user }) {
             Skupine
           </NavLink>
         )}
+      {loggedIn &&
+        user.user_type === userTypes.USER &&
+        Object.keys(user).length > 0 &&
+        user.group &&
+        user.group && (
+          <NavLink to="/results" className={navbarNavLinkStyles}>
+            Mojo odgovori
+          </NavLink>
+        )}
       {loggedIn && (
         <NavLink to="/leaderboard" className={navbarNavLinkStyles}>
           Rezultati

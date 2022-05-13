@@ -36,6 +36,16 @@ function MobileNavbarMenu({
             </NavLink>
           </li>
         )}
+      {loggedIn &&
+        user.user_type === userTypes.USER &&
+        Object.keys(user).length > 0 &&
+        user.group && (
+          <li>
+            <NavLink to="/results" className={menuNavbarLinkStyles}>
+              Moji odgovori
+            </NavLink>
+          </li>
+        )}
       {loggedIn && (
         <li>
           <NavLink to="/leaderboard" className={menuNavbarLinkStyles}>

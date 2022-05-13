@@ -76,6 +76,7 @@ function Leaderboard() {
           selectedEvent={selectedEvent}
           eventOnChangeHandler={eventOnChangeHandler}
         />
+        <hr className="my-5"></hr>
         {/* Table */}
         {selectedEvent && groups && groups.length > 0 && (
           <Table fields={['#', 'Ime skupine', 'Čas hoje', 'Točke za odgovore']}>
