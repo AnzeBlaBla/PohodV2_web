@@ -13,7 +13,7 @@ function Home({ user }) {
     <>
       {user.user_type === userTypes.ADMIN && <AdminHome />}
       {user.user_type === userTypes.TEACHER && <TeacherHome />}
-      {user.user_type === userTypes.USER && <UserHome />}
+      {user.user_type === userTypes.USER && <UserHome user={user} />}
     </>
   );
 }

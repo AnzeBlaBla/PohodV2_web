@@ -6,8 +6,8 @@ import { request } from '../../utils/functions';
 
 import Map from '../UI/Map';
 
-function UserHome() {
-  const { user, setShowLoadingSpinner, setDialog } = useGlobalContext();
+function UserHome({ user }) {
+  const { setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [points, setPoints] = useState([]);
 
@@ -27,7 +27,7 @@ function UserHome() {
           });
         });
     }
-  }, [user, setShowLoadingSpinner, setDialog]);
+  }, [user.group, setShowLoadingSpinner, setDialog]);
 
   return <Map points={points} />;
 }
