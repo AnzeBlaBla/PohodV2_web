@@ -51,7 +51,7 @@ function Leaderboard() {
 
           const newData = data.map((item, index) => {
             return [
-              index,
+              index + 1,
               item.name,
               item.time,
               `${item.correct_answers} / ${item.possible_points}`,
@@ -92,6 +92,8 @@ function Leaderboard() {
             data={groups}
             columns={['#', 'Ime skupine', 'Čas hoje', 'Točke za odgovore']}
             search={true}
+            sort={true}
+            resizable={true}
             pagination={{
               enabled: true,
               limit: 10,

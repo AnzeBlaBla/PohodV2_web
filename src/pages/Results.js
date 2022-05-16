@@ -8,9 +8,7 @@ import { request } from '../utils/functions';
 
 import Container from '../components/UI/Container';
 import Card from '../components/UI/Card';
-import Table from '../components/UI/Table';
-
-import ResultsList from '../components/results/ResultsList';
+import GridTable from '../components/UI/GridTable';
 
 function Results() {
   useProtectedRoute('required');
@@ -23,7 +21,16 @@ function Results() {
     request('/results/my_group')
       .then(data => {
         setShowLoadingSpinner(false);
-        setResults(data);
+
+        const newData = data.map((result, index) => {
+          return [
+            index + 1,
+            result.point.name,
+            `${result.correct_answers} / ${result.all_answers}`,
+          ];
+        });
+
+        setResults(newData);
       })
       .catch(err => {
         setShowLoadingSpinner(false);
@@ -46,9 +53,17 @@ function Results() {
         <hr className="my-5"></hr>
         {/* Table */}
         {results && results.length > 0 && (
-          <Table fields={['#', 'Ime točke', 'Pravilni odgovori / Vprašanja']}>
-            <ResultsList results={results} />
-          </Table>
+          <GridTable
+            data={results}
+            columns={['#', 'Ime točke', 'Pravilni odgovori / Vprašanja']}
+            search={true}
+            sort={true}
+            resizable={true}
+            pagination={{
+              enabled: true,
+              limit: 10,
+            }}
+          />
         )}
         {/* No Results */}
         {results && results.length < 1 && (
