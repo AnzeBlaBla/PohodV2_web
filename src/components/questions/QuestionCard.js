@@ -1,15 +1,38 @@
 import React from 'react';
 
+import QuestionTimer from './QuestionTimer';
+
 export default function QuestionCard({
   question,
   answerId,
+  questionIndex,
+  numberOfQuestions,
   setAnswerId,
+  isAnswering,
+  timerDuration,
+  remainingTime,
+  onComplete,
+  onUpdate,
   submitQuestion,
 }) {
   return (
     <div>
-      <h2 className="font-bold my-3">{question.text}</h2>
+      <h2 className="my-3">{question.text}</h2>
       <hr></hr>
+
+      <div className="flex justify-between items-center">
+        <QuestionTimer
+          isPlaying={isAnswering}
+          duration={timerDuration}
+          initialRemainingTime={remainingTime}
+          onComplete={onComplete}
+          onUpdate={onUpdate}
+        />
+
+        <h3 className="font-bold text-2xl my-3">
+          {questionIndex} / {numberOfQuestions}
+        </h3>
+      </div>
 
       <div className="flex flex-col justify-center my-5">
         {question.answers.map((answer, index) => (

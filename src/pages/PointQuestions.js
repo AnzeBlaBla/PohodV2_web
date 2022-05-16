@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { useGlobalContext } from '../context/GlobalContext';
 
@@ -17,6 +17,8 @@ export default function PointQuestions() {
 
   const { hash } = useParams();
 
+  const navigate = useNavigate();
+
   // when is answering is true, user can see the question and answer it
   const [isAnswering, setIsAnswering] = useState(false);
 
@@ -30,7 +32,21 @@ export default function PointQuestions() {
   const [questionIndex, setQuestionIndex] = useState(null);
   const [answerId, setAnswerId] = useState(null);
 
+  const [timerDuration, setTimerDuration] = useState(10);
+  const [remainingTime, setRemainingTime] = useState(null);
+
+  const onUpdateTimer = newRemainingTime => {
+    localStorage.setItem(
+      `remainingTime-${hash}-${questionIndex}`,
+      newRemainingTime
+    );
+  };
+
   const getQuestion = useCallback(() => {
+    if (questionIndex === numberOfQuestions) {
+      navigate('/results');
+    }
+
     setShowLoadingSpinner(true);
     request(`/point_questions/${hash}`)
       .then(data => {
@@ -39,6 +55,8 @@ export default function PointQuestions() {
       })
       .then(data => {
         setShowLoadingSpinner(false);
+
+        setTimerDuration(10);
 
         setAnswerId(data.question.answers[0]?.answer_id);
         setQuestionIndex(data.index);
@@ -51,7 +69,14 @@ export default function PointQuestions() {
           text: 'Prišlo je do napake pri pridobivanju vprašanj. Poskusite znova.',
         });
       });
-  }, [hash, setShowLoadingSpinner, setDialog]);
+  }, [
+    hash,
+    setShowLoadingSpinner,
+    setDialog,
+    navigate,
+    numberOfQuestions,
+    questionIndex,
+  ]);
 
   const submitQuestion = useCallback(() => {
     setIsAnswering(false);
@@ -60,6 +85,9 @@ export default function PointQuestions() {
     setOverlayText('Nadaljuj');
 
     setShowLoadingSpinner(true);
+
+    // delete localStorage
+    localStorage.removeItem(`remainingTime-${hash}-${questionIndex}`);
 
     request(`/questions/answer`, 'POST', {
       answer_id: answerId,
@@ -82,11 +110,29 @@ export default function PointQuestions() {
       .catch(err => {
         setShowLoadingSpinner(false);
       });
-  }, [hash, answerId, setShowLoadingSpinner, setNotification, getQuestion]);
+  }, [
+    hash,
+    answerId,
+    setShowLoadingSpinner,
+    setNotification,
+    getQuestion,
+    questionIndex,
+  ]);
 
   useEffect(() => {
     getQuestion();
-  }, [getQuestion]);
+
+    const remainingTimeStored = +localStorage.getItem(
+      `remainingTime-${hash}-${questionIndex}`
+    );
+
+    if (remainingTimeStored) {
+      setRemainingTime(remainingTimeStored);
+      console.log(remainingTimeStored);
+    } else {
+      setRemainingTime(timerDuration);
+    }
+  }, [getQuestion, hash, timerDuration, questionIndex]);
 
   return (
     <Container mode="page">
@@ -101,12 +147,19 @@ export default function PointQuestions() {
               />
             )}
 
-            {isAnswering && (
+            {isAnswering && remainingTime && (
               <QuestionCard
                 question={question}
                 answerId={answerId}
+                numberOfQuestions={numberOfQuestions}
+                questionIndex={questionIndex}
                 setAnswerId={setAnswerId}
                 submitQuestion={submitQuestion}
+                timerDuration={timerDuration}
+                remainingTime={remainingTime}
+                onComplete={submitQuestion}
+                onUpdate={onUpdateTimer}
+                isAnswering
               />
             )}
           </Card>
