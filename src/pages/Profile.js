@@ -1,7 +1,5 @@
 import React from 'react';
 
-import useProtectedRoute from '../hooks/useProtectedRoute';
-
 import ProfileInfo from '../components/users/ProfileInfo';
 import ProfileSettings from '../components/users/ProfileSettings';
 
@@ -9,8 +7,6 @@ import Container from '../components/UI/Container';
 import Card from '../components/UI/Card';
 
 function Profile({ user }) {
-  useProtectedRoute('required');
-
   return (
     <Container mode="page">
       <Card>

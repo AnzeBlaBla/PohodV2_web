@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 
 import { useGlobalContext } from '../context/GlobalContext';
 
-import useProtectedRoute from '../hooks/useProtectedRoute';
-
 import { request } from '../utils/functions';
 
 import SelectEvent from '../components/leaderboard/SelectEvent';
@@ -13,8 +11,6 @@ import Card from '../components/UI/Card';
 import GridTable from '../components/UI/GridTable';
 
 function Leaderboard() {
-  useProtectedRoute('required');
-
   const { setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [events, setEvents] = useState([]);

@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
-import useProtectedRoute from '../../hooks/useProtectedRoute';
-
 import AllEvents from './AllEvents';
 import NewEvent from './NewEvent';
 import EventDetails from './EventDetails';
@@ -13,8 +11,6 @@ import Container from '../../components/UI/Container';
 import Card from '../../components/UI/Card';
 
 function Events() {
-  useProtectedRoute('required');
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
 

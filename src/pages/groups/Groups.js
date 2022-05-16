@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
-import useProtectedRoute from '../../hooks/useProtectedRoute';
-
 import NewGroup from './NewGroup';
 import JoinGroup from './JoinGroup';
 import MyGroup from './MyGroup';
@@ -13,8 +11,6 @@ import Container from '../../components/UI/Container';
 import Card from '../../components/UI/Card';
 
 function Groups({ user }) {
-  useProtectedRoute('required');
-
   const navigate = useNavigate();
   const { pathname } = useLocation();
 

@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 
 import { useGlobalContext } from '../context/GlobalContext';
 
-import useProtectedRoute from '../hooks/useProtectedRoute';
-
 import { request } from '../utils/functions';
 
 import Container from '../components/UI/Container';
@@ -11,8 +9,6 @@ import Card from '../components/UI/Card';
 import GridTable from '../components/UI/GridTable';
 
 function Results() {
-  useProtectedRoute('required');
-
   const { setShowLoadingSpinner, setDialog } = useGlobalContext();
 
   const [results, setResults] = useState([]);
