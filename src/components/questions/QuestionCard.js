@@ -21,6 +21,7 @@ export default function QuestionCard({
       <hr></hr>
 
       <div className="flex justify-between items-center">
+        {/* Timer */}
         <QuestionTimer
           isPlaying={isAnswering}
           duration={timerDuration}
@@ -29,11 +30,13 @@ export default function QuestionCard({
           onUpdate={onUpdate}
         />
 
+        {/* Question counter */}
         <h3 className="font-bold text-2xl my-3">
           {questionIndex} / {numberOfQuestions}
         </h3>
       </div>
 
+      {/* Answers */}
       <div className="flex flex-col justify-center my-5">
         {question.answers.map((answer, index) => (
           <button
@@ -51,6 +54,7 @@ export default function QuestionCard({
       </div>
 
       <hr></hr>
+      {/* Submit button */}
       <div className="flex justify-end items-center">
         <button className="button my-3" onClick={submitQuestion}>
           Odgovori

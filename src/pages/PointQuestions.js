@@ -16,25 +16,28 @@ export default function PointQuestions() {
     useGlobalContext();
 
   const { hash } = useParams();
-
   const navigate = useNavigate();
 
-  // when is answering is true, user can see the question and answer it
+  // Is answering
   const [isAnswering, setIsAnswering] = useState(false);
 
+  // Overlay
   const [overlayTitle, setOverlayTitle] = useState(
     'Prišli ste na stran za odgovarjanje na vprašanja posamezne točke. Ko boste pripravljeni odgovarjati, pritisnite spodnji gumb.'
   );
   const [overlayText, setOverlayText] = useState('Prični odgovarjati');
 
+  // Question
   const [numberOfQuestions, setNumberOfQuestions] = useState(0);
   const [question, setQuestion] = useState(null);
   const [questionIndex, setQuestionIndex] = useState(null);
   const [answerId, setAnswerId] = useState(null);
 
+  // Timer
   const [timerDuration, setTimerDuration] = useState(10);
   const [remainingTime, setRemainingTime] = useState(null);
 
+  // Update local storage timer
   const onUpdateTimer = newRemainingTime => {
     localStorage.setItem(
       `remainingTime-${hash}-${questionIndex}`,
@@ -42,24 +45,34 @@ export default function PointQuestions() {
     );
   };
 
+  // Get Question
   const getQuestion = useCallback(() => {
+    // If last question is answered, redirect to results
     if (questionIndex === numberOfQuestions) {
       navigate('/results');
     }
 
     setShowLoadingSpinner(true);
+
+    // Get number of questions
     request(`/point_questions/${hash}`)
       .then(data => {
         setNumberOfQuestions(data);
+
+        // Get a random question
         return request(`/questions/${hash}`);
       })
       .then(data => {
         setShowLoadingSpinner(false);
 
+        // Reset timer
         setTimerDuration(10);
 
+        // Set correct answer
         setAnswerId(data.question.answers[0]?.answer_id);
+        // Set question number
         setQuestionIndex(data.index);
+        // Set question
         setQuestion(data.question);
       })
       .catch(err => {
@@ -78,26 +91,29 @@ export default function PointQuestions() {
     questionIndex,
   ]);
 
+  // Submit Question
   const submitQuestion = useCallback(() => {
+    // Prevent answering
     setIsAnswering(false);
 
+    // Display overlay for next question
     setOverlayTitle('Vaš odgovor je bil uspešno poslan.');
     setOverlayText('Nadaljuj');
 
     setShowLoadingSpinner(true);
 
-    // delete localStorage
+    // Remove local storage timer
     localStorage.removeItem(`remainingTime-${hash}-${questionIndex}`);
 
+    // Submit answer
     request(`/questions/answer`, 'POST', {
       answer_id: answerId,
       point_hash: hash,
     })
       .then(data => {
-        console.log(data, answerId);
-
         setShowLoadingSpinner(false);
 
+        // Display notification
         setNotification({
           title: `Vaš odgovor je bil ${
             data === 'CORRECT' ? 'pravilen' : 'nepravilen'
@@ -105,6 +121,7 @@ export default function PointQuestions() {
           type: data === 'CORRECT' ? 'success' : 'error',
         });
 
+        // Get next question
         getQuestion();
       })
       .catch(err => {
@@ -120,12 +137,15 @@ export default function PointQuestions() {
   ]);
 
   useEffect(() => {
+    // Get question
     getQuestion();
 
+    // Get remaining time from local storage
     const remainingTimeStored = +localStorage.getItem(
       `remainingTime-${hash}-${questionIndex}`
     );
 
+    // If there is a remaining time stored, set it
     if (remainingTimeStored) {
       setRemainingTime(remainingTimeStored);
       console.log(remainingTimeStored);
@@ -149,17 +169,17 @@ export default function PointQuestions() {
 
             {isAnswering && remainingTime && (
               <QuestionCard
-                question={question}
-                answerId={answerId}
                 numberOfQuestions={numberOfQuestions}
+                question={question}
                 questionIndex={questionIndex}
+                answerId={answerId}
                 setAnswerId={setAnswerId}
-                submitQuestion={submitQuestion}
                 timerDuration={timerDuration}
                 remainingTime={remainingTime}
+                isAnswering
+                submitQuestion={submitQuestion}
                 onComplete={submitQuestion}
                 onUpdate={onUpdateTimer}
-                isAnswering
               />
             )}
           </Card>
