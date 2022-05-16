@@ -7,11 +7,10 @@ import useProtectedRoute from '../hooks/useProtectedRoute';
 import { request } from '../utils/functions';
 
 import SelectEvent from '../components/leaderboard/SelectEvent';
-import LeaderboardList from '../components/leaderboard/LeaderboardList';
 
 import Container from '../components/UI/Container';
 import Card from '../components/UI/Card';
-import Table from '../components/UI/Table';
+import GridTable from '../components/UI/GridTable';
 
 function Leaderboard() {
   useProtectedRoute('required');
@@ -49,7 +48,17 @@ function Leaderboard() {
       request(`/leaderboards/${selectedEvent}`)
         .then(data => {
           setShowLoadingSpinner(false);
-          setGroups(data);
+
+          const newData = data.map((item, index) => {
+            return [
+              index,
+              item.name,
+              item.time,
+              `${item.correct_answers} / ${item.possible_points}`,
+            ];
+          });
+
+          setGroups(newData);
         })
         .catch(err => {
           setShowLoadingSpinner(false);
@@ -79,9 +88,15 @@ function Leaderboard() {
         <hr className="my-5"></hr>
         {/* Table */}
         {selectedEvent && groups && groups.length > 0 && (
-          <Table fields={['#', 'Ime skupine', 'Čas hoje', 'Točke za odgovore']}>
-            <LeaderboardList groups={groups} />
-          </Table>
+          <GridTable
+            data={groups}
+            columns={['#', 'Ime skupine', 'Čas hoje', 'Točke za odgovore']}
+            search={true}
+            pagination={{
+              enabled: true,
+              limit: 10,
+            }}
+          />
         )}
         {/* No Results */}
         {selectedEvent !== '' && groups && groups.length < 1 && (

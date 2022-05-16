@@ -21,10 +21,6 @@ function UserHome({ user }) {
         })
         .catch(err => {
           setShowLoadingSpinner(false);
-          setDialog({
-            title: 'Napaka pri pridobivanju točk',
-            text: 'Prišlo je do napake pri pridobivanju točk. Poskusite znova.',
-          });
         });
     }
   }, [user.group, setShowLoadingSpinner, setDialog]);
