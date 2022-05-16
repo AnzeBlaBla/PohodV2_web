@@ -12,7 +12,8 @@ import QuestionOverlay from '../components/questions/QuestionOverlay';
 import QuestionCard from '../components/questions/QuestionCard';
 
 export default function PointQuestions() {
-  const { setShowLoadingSpinner, setDialog } = useGlobalContext();
+  const { setShowLoadingSpinner, setDialog, setNotification } =
+    useGlobalContext();
 
   const { hash } = useParams();
 
@@ -52,31 +53,65 @@ export default function PointQuestions() {
       });
   }, [hash, setShowLoadingSpinner, setDialog]);
 
+  const submitQuestion = useCallback(() => {
+    setIsAnswering(false);
+
+    setOverlayTitle('Vaš odgovor je bil uspešno poslan.');
+    setOverlayText('Nadaljuj');
+
+    setShowLoadingSpinner(true);
+
+    request(`/questions/answer`, 'POST', {
+      answer_id: answerId,
+      point_hash: hash,
+    })
+      .then(data => {
+        console.log(data, answerId);
+
+        setShowLoadingSpinner(false);
+
+        setNotification({
+          title: `Vaš odgovor je bil ${
+            data === 'CORRECT' ? 'pravilen' : 'nepravilen'
+          }!`,
+          type: data === 'CORRECT' ? 'success' : 'error',
+        });
+
+        getQuestion();
+      })
+      .catch(err => {
+        setShowLoadingSpinner(false);
+      });
+  }, [hash, answerId, setShowLoadingSpinner, setNotification, getQuestion]);
+
   useEffect(() => {
     getQuestion();
   }, [getQuestion]);
 
   return (
     <Container mode="page">
-      <div className="small-container">
-        <Card>
-          {question && !isAnswering && (
-            <QuestionOverlay
-              setIsAnswering={setIsAnswering}
-              title={overlayTitle}
-              text={overlayText}
-            />
-          )}
+      {question && (
+        <div className="small-container">
+          <Card>
+            {!isAnswering && (
+              <QuestionOverlay
+                setIsAnswering={setIsAnswering}
+                title={overlayTitle}
+                text={overlayText}
+              />
+            )}
 
-          {question && isAnswering && (
-            <QuestionCard
-              question={question}
-              answerId={answerId}
-              setAnswerId={setAnswerId}
-            />
-          )}
-        </Card>
-      </div>
+            {isAnswering && (
+              <QuestionCard
+                question={question}
+                answerId={answerId}
+                setAnswerId={setAnswerId}
+                submitQuestion={submitQuestion}
+              />
+            )}
+          </Card>
+        </div>
+      )}
     </Container>
   );
 }

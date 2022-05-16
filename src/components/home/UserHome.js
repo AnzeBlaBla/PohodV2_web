@@ -17,7 +17,16 @@ function UserHome({ user }) {
       request('/points/unlocked')
         .then(res => {
           setShowLoadingSpinner(false);
-          setPoints(res);
+
+          const uniquePoints = res.filter(
+            (point, index) =>
+              res.findIndex(
+                p =>
+                  p.point_id === point.point_id && p.group_id === point.group_id
+              ) === index
+          );
+
+          setPoints(uniquePoints);
         })
         .catch(err => {
           setShowLoadingSpinner(false);

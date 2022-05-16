@@ -1,6 +1,11 @@
 import React from 'react';
 
-export default function QuestionCard({ question, answerId, setAnswerId }) {
+export default function QuestionCard({
+  question,
+  answerId,
+  setAnswerId,
+  submitQuestion,
+}) {
   return (
     <div>
       <h2 className="font-bold my-3">{question.text}</h2>
@@ -24,7 +29,9 @@ export default function QuestionCard({ question, answerId, setAnswerId }) {
 
       <hr></hr>
       <div className="flex justify-end items-center">
-        <button className="button my-3">Odgovori</button>
+        <button className="button my-3" onClick={submitQuestion}>
+          Odgovori
+        </button>
       </div>
     </div>
   );
