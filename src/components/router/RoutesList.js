@@ -8,6 +8,7 @@ import Groups from '../../pages/groups/Groups';
 import NoPage from '../../pages/NoPage';
 import Profile from '../../pages/Profile';
 import Results from '../../pages/Results';
+import PointQuestions from '../../pages/PointQuestions';
 
 import Navbar from '../layouts/Navbar';
 
@@ -48,6 +49,9 @@ function RoutesList() {
         {/* Groups */}
         {userExists() && user.user_type === userTypes.USER && (
           <Route path="/groups/*" element={<Groups user={user} />} />
+        )}
+        {userExists() && user.user_type === userTypes.USER && (
+          <Route path="/points/:hash" element={<PointQuestions />} />
         )}
         {/* 404 Page */}
         <Route path="*" element={<NoPage />} />
