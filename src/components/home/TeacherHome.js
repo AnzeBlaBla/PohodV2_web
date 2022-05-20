@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useGlobalContext } from '../../context/GlobalContext';
 
@@ -6,9 +6,10 @@ import { request } from '../../utils/functions';
 
 import Container from '../UI/Container';
 import Card from '../UI/Card';
-import Map from '../UI/Map';
 
 import SelectEvent from '../leaderboard/SelectEvent';
+
+const Map = React.lazy(() => import('../UI/Map'));
 
 function TeacherHome() {
   const { setShowLoadingSpinner, setDialog } = useGlobalContext();

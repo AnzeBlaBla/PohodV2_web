@@ -1,10 +1,12 @@
+import React from 'react';
+
 import useProtectedRoute from '../hooks/useProtectedRoute';
 
 import { userTypes } from '../utils/consts';
 
-import UserHome from '../components/home/UserHome';
-import TeacherHome from '../components/home/TeacherHome';
-import AdminHome from '../components/home/AdminHome';
+const UserHome = React.lazy(() => import('../components/home/UserHome'));
+const TeacherHome = React.lazy(() => import('../components/home/TeacherHome'));
+const AdminHome = React.lazy(() => import('../components/home/AdminHome'));
 
 function Home({ user }) {
   useProtectedRoute('required');

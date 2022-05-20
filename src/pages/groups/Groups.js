@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-
-import NewGroup from './NewGroup';
-import JoinGroup from './JoinGroup';
-import MyGroup from './MyGroup';
 
 import GroupsNavigation from '../../components/groups/GroupsNavigation';
 
 import Container from '../../components/UI/Container';
 import Card from '../../components/UI/Card';
+
+const NewGroup = React.lazy(() => import('./NewGroup'));
+const JoinGroup = React.lazy(() => import('./JoinGroup'));
+const MyGroup = React.lazy(() => import('./MyGroup'));
 
 function Groups({ user }) {
   const navigate = useNavigate();

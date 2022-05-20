@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { useGlobalContext } from '../context/GlobalContext';
@@ -9,7 +9,10 @@ import Container from '../components/UI/Container';
 import Card from '../components/UI/Card';
 
 import QuestionOverlay from '../components/questions/QuestionOverlay';
-import QuestionCard from '../components/questions/QuestionCard';
+
+const QuestionCard = React.lazy(() =>
+  import('../components/questions/QuestionCard')
+);
 
 export default function PointQuestions() {
   const { setShowLoadingSpinner, setDialog, setNotification } =

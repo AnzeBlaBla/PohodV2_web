@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useGlobalContext } from '../context/GlobalContext';
 
@@ -6,7 +6,8 @@ import { request } from '../utils/functions';
 
 import Container from '../components/UI/Container';
 import Card from '../components/UI/Card';
-import GridTable from '../components/UI/GridTable';
+
+const GridTable = React.lazy(() => import('../components/UI/GridTable'));
 
 function Results() {
   const { setShowLoadingSpinner, setDialog } = useGlobalContext();
