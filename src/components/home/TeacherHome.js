@@ -25,13 +25,7 @@ function TeacherHome() {
         setShowLoadingSpinner(false);
         setEvents(data);
       })
-      .catch(err => {
-        setShowLoadingSpinner(false);
-        setDialog({
-          title: 'Napaka pri pridobivanju dogodkov',
-          text: 'Prišlo je do napake pri pridobivanju dogodkov. Poskusite znova.',
-        });
-      });
+      .catch(err => {});
   }, [setShowLoadingSpinner, setDialog]);
 
   const eventOnChangeHandler = event => {
