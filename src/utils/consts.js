@@ -3,3 +3,28 @@ export const userTypes = {
   TEACHER: '1',
   ADMIN: '2',
 };
+
+export const dashboard = {
+  tables: [
+    {
+      name: 'Uporabniki',
+      to: '/dashboard/users',
+    },
+    {
+      name: 'Skupine',
+      to: '/dashboard/groups',
+    },
+    {
+      name: 'Dogodki',
+      to: '/dashboard/events',
+    },
+    {
+      name: 'Skupine vprašanj',
+      to: '/dashboard/questions_groups',
+    },
+    {
+      name: 'Vprašanja',
+      to: '/dashboard/questions',
+    },
+  ],
+};

@@ -17,6 +17,7 @@ const NoPage = React.lazy(() => import('../../pages/NoPage'));
 const Profile = React.lazy(() => import('../../pages/Profile'));
 const Results = React.lazy(() => import('../../pages/Results'));
 const PointQuestions = React.lazy(() => import('../../pages/PointQuestions'));
+const Dashboard = React.lazy(() => import('../../pages/dashboard/Dashboard'));
 
 function RoutesList() {
   const { user } = useUser();
@@ -44,6 +45,10 @@ function RoutesList() {
           {/* Leaderboard Page */}
           {userExists() && (
             <Route exact path="/leaderboard" element={<Leaderboard />} />
+          )}
+          {/* Dashboard */}
+          {userExists() && user.user_type === userTypes.ADMIN && (
+            <Route path="/dashboard" element={<Dashboard />} />
           )}
           {/* Events */}
           {userExists() && user.user_type === userTypes.ADMIN && (

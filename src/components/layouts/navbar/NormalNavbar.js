@@ -14,6 +14,13 @@ function NormalNavbar({ loggedIn, navbarNavLinkStyles, user }) {
       {loggedIn &&
         user.user_type === userTypes.ADMIN &&
         Object.keys(user).length > 0 && (
+          <NavLink to="/dashboard" className={navbarNavLinkStyles}>
+            Nadzorna plošča
+          </NavLink>
+        )}
+      {loggedIn &&
+        user.user_type === userTypes.ADMIN &&
+        Object.keys(user).length > 0 && (
           <NavLink to="/events" className={navbarNavLinkStyles}>
             Dogodki
           </NavLink>

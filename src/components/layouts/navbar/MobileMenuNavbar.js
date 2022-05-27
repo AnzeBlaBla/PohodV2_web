@@ -22,6 +22,15 @@ function MobileNavbarMenu({
         user.user_type === userTypes.ADMIN &&
         Object.keys(user).length > 0 && (
           <li>
+            <NavLink to="/dashboard" className={menuNavbarLinkStyles}>
+              Nadzorna plošča
+            </NavLink>
+          </li>
+        )}
+      {loggedIn &&
+        user.user_type === userTypes.ADMIN &&
+        Object.keys(user).length > 0 && (
+          <li>
             <NavLink to="/events" className={menuNavbarLinkStyles}>
               Dogodki
             </NavLink>
