@@ -15,7 +15,7 @@ function Dashboard() {
             <NavLink
               to={table.to}
               key={table.to}
-              className="p-4 m-2 border-2 border-gray-300 uppercase"
+              className="p-4 m-2 border-2 border-gray-300 uppercase transition-colors duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-700"
             >
               {table.name}
             </NavLink>

@@ -18,6 +18,9 @@ const Profile = React.lazy(() => import('../../pages/Profile'));
 const Results = React.lazy(() => import('../../pages/Results'));
 const PointQuestions = React.lazy(() => import('../../pages/PointQuestions'));
 const Dashboard = React.lazy(() => import('../../pages/dashboard/Dashboard'));
+const DashboardDetails = React.lazy(() =>
+  import('../../pages/dashboard/DashboardDetails')
+);
 
 function RoutesList() {
   const { user } = useUser();
@@ -49,6 +52,10 @@ function RoutesList() {
           {/* Dashboard */}
           {userExists() && user.user_type === userTypes.ADMIN && (
             <Route path="/dashboard" element={<Dashboard />} />
+          )}
+          {/* Dashboard Details */}
+          {userExists() && user.user_type === userTypes.ADMIN && (
+            <Route path="/dashboard/:id" element={<DashboardDetails />} />
           )}
           {/* Events */}
           {userExists() && user.user_type === userTypes.ADMIN && (

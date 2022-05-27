@@ -20,7 +20,7 @@ export const dashboard = {
     },
     {
       name: 'Skupine vprašanj',
-      to: '/dashboard/questions_groups',
+      to: '/dashboard/question_groups',
     },
     {
       name: 'Vprašanja',
